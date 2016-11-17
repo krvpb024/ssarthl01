@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<nav class="navbar">
+<div class="btn-group">
+<a href={% url 'table_money_list' %} class="btn btn-primary"><i class="icon-list-alt"></i> 餐費表格</a>
+<a href={% url 'month_create' %} class="btn btn-primary"><i class="icon-file"></i> 製作表格</a>
+<a href={%  url 'edit_work_day' pk=months.pk  %} class="btn btn-primary"><i class="icon-calendar"></i> 編輯上班天數</a>
+<a href={%  url 'table_money_pay' pk=months.pk  %} class="btn btn-primary"><i class="icon-money"></i> 繳費</a>
+      <!-- Small modal -->
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-sm-{{ profile.number }}"><i class="icon-remove"></i> 刪除本月表格</button>
+</div>
+</nav>
+
+<p>
+
+ 
+      <div class="modal fade bd-example-modal-sm-{{ profile.number }}">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <h4 class="modal-title">確認刪除</h4>
+            </div>
+            <div class="modal-body">
+            
+              <p>是否刪除 {{months.year}} {{months.month}} 表格</p>
+              
+            </div>
+            <div class="modal-footer">
+              
+              
+              <a href={{months.remove}} class="btn btn-info">是</a>
+
+              
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">否</button>
+            </div>
+          </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+      </div><!-- /.modal -->
+
+
+
+
+<p><h1>{{ months.year }}年 {{ months.month }}</h1>
+
+
+<div class="row">
+  <div class="col-lg-8">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>編號</th>
+          <th>姓名</th>
+          <th>上班天數</th>
+          <th>餐費金額</th>
+          <th>收款人</th>
+          <th>收款日期</th>
+          <th>備註</th>
+        </tr>
+      </thead>
+          {% for table_money in table_moneys %}
+      <tbody>
+        <tr>
+
+          {% if table_money.pay_off == True %}
+          <td>{{table_money.name.number}}</td>
+          <td>{{table_money.name}}</td>
+          <td>{{table_money.workday_count}}</td>
+          <td>{{table_money.totle_price}}</td>
+          <td>{{table_money.payee}} </td>
+          <td>{{table_money.pay_date.month}}/{{table_money.pay_date.day}}</td>
+
+          {% else %}
+          <td>{{table_money.name.number}}</td>
+          <td>{{table_money.name}}</td>
+          <td>{{table_money.workday_count}}</td>
+          <td>{{table_money.totle_price}}</td>
+          <td> </td>
+          <td> </td>
+          {% endif %}
+
+          <td>{{table_money.note}}</td>
+        </tr>
+      </tbody>
+          {% endfor %}
+    </table>
+  </div>
+</div>
+
+
+<div class="row">
+<div class="col-lg-6">
+<p>已繳金額：{{ months.current_money }}</p>
+當月總額：{{ months.month_total }}
+</div>
+</div>
+
+{% endblock %}

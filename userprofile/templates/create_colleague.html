@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% block content %}
+
+<nav class="navbar">
+<div class="btn-group">
+<a href={% url 'profile_list' %} class="btn btn-primary"><i class="icon-user"></i> 人員列表</a>
+<a href={% url 'create_colleague' %} class="btn btn-primary active"><i class="icon-user"></i> 新增人員</a>
+<a href={% url 'edit_profile' %} class="btn btn-primary"><i class="icon-user"></i> 編輯人員資料</a>
+<a href={% url 'profile_delete_list' %} class="btn btn-primary"><i class="icon-remove"></i> 刪除人員</a>
+<a href={% url 'edit_member_number' %} class="btn btn-primary"><i class="icon-list-ol"></i> 修改隊員編號</a>
+<a href={% url 'edit_substitute_number' %} class="btn btn-primary"><i class="icon-list-ol"></i> 修改替代役編號</a>
+</div>
+</nav>
+<p>
+<h1>新增人員</h1>
+
+<form action="" method="POST">
+    {% csrf_token %}
+    {{form.name.label_tag}}{{ form.name|add_class:'form-control' }}<p>
+    {{form.rank.label_tag}}{{ form.rank|add_class:'form-control' }}<p>
+    {{form.number.label_tag}} <small class='text-muted'>隊員目前最大編號：{{ last_members.number }} 替代役目前最大編號：{{ last_substitutes.number }}</small>{{ form.number|add_class:'form-control' }}<p>
+    {{form.mobile_phone.label_tag}}{{ form.mobile_phone|add_class:'form-control' }}<p>
+    {{form.home_phone.label_tag}}{{ form.home_phone|add_class:'form-control' }}<p>
+    {{form.emergency_call.label_tag}}{{ form.emergency_call|add_class:'form-control' }}<p>
+    <p>
+    
+    隊員目前最大編號：{{ last_members.number }}
+<p>替代役目前最大編號：{{ last_substitutes.number }}</p>
+    <input type="submit" class="btn btn-primary">
+</form>
+
+
+
+{% endblock %}

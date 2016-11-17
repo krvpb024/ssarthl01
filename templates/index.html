@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+      <div class="row">
+        <div class="col-lg-4">
+          <h2>花蓮駐地人員</h2>
+			<dl class="row">
+			<dt class="col-sm-3">小隊長：</dt>
+			<dd class="col-sm-9">{{ captain }}</dd>
+
+			<dt class="col-sm-3">隊員：</dt>
+			<dd class="col-sm-9">{% for member in members %}{{ member }} {% endfor %}</dd>
+
+			<dt class="col-sm-3">替代役：</dt>
+			<dd class="col-sm-9">{% for substitute in substitutes %}{{ substitute }} {% endfor %}</dd>
+			</dl>
+          <p><a class="btn btn-primary" href={% url 'profile_list' %} role="button">人員列表 &raquo;</a></p>
+        </div>
+        <div class="col-lg-4">
+          <h2>聯絡方式</h2>
+			<dl class="row">
+			<dt class="col-sm-1"><i class="fa fa-phone" aria-hidden="true"></i></dt>
+			<dd class="col-sm-11">03-8267119</dd>
+
+			<dt class="col-sm-1"><i class="fa fa-fax" aria-hidden="true"></i></dt>
+			<dd class="col-sm-11">03-8269546</dd>
+
+			<dt class="col-sm-1"><i class="fa fa-map-marker" aria-hidden="true"></i> </dt>
+			<dd class="col-sm-11">花蓮縣新城鄉大漢村華興街1號</dd>
+			</dl>
+        </div>
+        <div class="col-lg-4">
+          <h2>Heading</h2>
+          <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa.</p>
+          <p><a class="btn btn-primary" href="#" role="button">View details &raquo;</a></p>
+        </div>
+      </div>
+
+{% endblock %}

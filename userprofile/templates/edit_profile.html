@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% block content %}
+<nav class="navbar">
+<div class="btn-group">
+<a href={% url 'profile_list' %} class="btn btn-primary"><i class="icon-user"></i> 人員列表</a>
+<a href={% url 'create_colleague' %} class="btn btn-primary"><i class="icon-user"></i> 新增人員</a>
+<a href={% url 'edit_profile' %} class="btn btn-primary active"><i class="icon-user"></i> 編輯人員資料</a>
+<a href={% url 'profile_delete_list' %} class="btn btn-primary"><i class="icon-remove"></i> 刪除人員</a>
+<a href={% url 'edit_member_number' %} class="btn btn-primary"><i class="icon-list-ol"></i> 修改隊員編號</a>
+<a href={% url 'edit_substitute_number' %} class="btn btn-primary"><i class="icon-list-ol"></i> 修改替代役編號</a>
+</div>
+</nav>
+<p>
+<h1>編輯人員資料</h1>
+
+<form action="" method="POST" >
+    <table class="table table-hover">
+        {% csrf_token %}
+        {{ formset.management_form }}
+
+            <thead>
+                <tr>
+                <th>姓名</th>
+                <th>身分</th>
+                <th>編號</th>
+                <th>行動電話</th>
+                <th>住宅電話</th>
+                <th>緊急聯絡人</th>
+                </tr>
+            </thead>
+
+
+
+            <tbody>
+            <tr>
+
+        {% for form in formset %}
+            <p>
+            <div class="form-group">
+            <td>{{ form.name|add_class:'form-control' }}</td>
+            <td>{{ form.rank|add_class:'form-control' }}</td>
+            <td>{{ form.number|add_class:'form-control' }}</td>
+            <td>{{ form.mobile_phone|add_class:'form-control' }}</td>
+            <td>{{ form.home_phone|add_class:'form-control' }}</td>
+            <td>{{ form.emergency_call|add_class:'form-control' }}</td>
+            </div>
+            </p>
+
+            {% for form in formset %}    
+                {% for hidden in form.hidden_fields %}
+                    {{ hidden }}
+                {% endfor %}    
+            {% endfor %}
+
+
+            
+
+
+            </tr>
+            </tbody>
+
+
+        {% endfor %}
+
+    </table>
+    <input type="submit" class="btn btn-primary">
+</form>    	
+
+
+{% endblock %}
