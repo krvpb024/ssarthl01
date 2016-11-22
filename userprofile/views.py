@@ -78,7 +78,7 @@ def edit_profile(request):
 			formset.save(commit=False)
 			for form in formset:
 				form.save()
-				messages.add_message(request, messages.INFO, '人員資料編輯完成')
+			messages.add_message(request, messages.INFO, '人員資料編輯完成')
 			return HttpResponseRedirect(reverse(profile_list))
 
 	context = {
@@ -111,7 +111,7 @@ def edit_substitute_number(request):
 	formset = EditNumberFormSet(queryset=substitutes)
 
 	if request.method =='POST':
-		formset = EditNumberFormSet(request.POST)
+		formset = EditNumberFormSet(data=request.POST)
 		if formset.is_valid():
 			formset.save(commit=False)
 			for form in formset:

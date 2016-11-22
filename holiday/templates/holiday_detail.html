@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<nav class="navbar">
+	<div class="btn-group">
+		<a href={% url 'holiday_list' %} class="btn btn-primary"><i class="icon-list-alt"></i> 輪休表</a>
+		<a href={% url 'holiday_create' %} class="btn btn-primary"><i class="icon-file"></i> 製作表格</a>
+		 <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-sm"><i class="icon-remove"></i> 刪除本月表格</button>
+	</div>
+</nav>
+<p>
+
+
+      <div class="modal fade bd-example-modal-sm">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <h4 class="modal-title">確認刪除</h4>
+            </div>
+            <div class="modal-body">
+            
+              <p>是否刪除 {{ holiday_months.year }}年{{ holiday_months.month }}月份輪休預定表</p>
+              
+            </div>
+            <div class="modal-footer">
+              
+              
+              <a href={{holiday_months.remove}} class="btn btn-primary">是</a>
+
+              
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">否</button>
+            </div>
+          </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+      </div><!-- /.modal -->
+
+
+
+<h1>{{ holiday_months.year }}年 {{ holiday_months.month }}月份輪休預定表</h1>
+<p>
+
+
+
+
+
+
+<table class="table table-sm table-bordered table-hover">
+  <thead class="table-active">
+    <tr>
+      <th></th>
+      <th></th>  
+      
+      {% for date in date_list %}<th>{{ date }}</th>{% endfor %}
+    </tr>
+    <tr>
+      <th>編號</th>
+      <th>姓名</th>      
+      {% for weekday in weekday_list %}
+
+      <th>
+
+
+      {{ weekday }}
+
+
+      </th>
+
+      {% endfor %}
+    </tr>
+  </thead>
+  
+  <tbody>
+    {% for holiday in final_holiday %}
+    <tr>
+      <th>{{ holiday.0.name.number }}</th>
+      <th>{{ holiday.0.name }}</th>
+      {% for dates in holiday.1 %}
+      <td>{{ dates|slice:":29" }}</td>
+      {% endfor %}
+      <td><a href={% url "edit_holiday" month_pk=holiday.0.month.pk name_pk=holiday.0.name.pk %}>編輯</a></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+
+
+{% endblock %}
+

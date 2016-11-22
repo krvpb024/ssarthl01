@@ -20,9 +20,10 @@
     {{form.name.label_tag}}{{ form.name|add_class:'form-control' }}<p>
     {{form.rank.label_tag}}{{ form.rank|add_class:'form-control' }}<p>
     {{form.number.label_tag}} <small class='text-muted'>隊員目前最大編號：{{ last_members.number }} 替代役目前最大編號：{{ last_substitutes.number }}</small>{{ form.number|add_class:'form-control' }}<p>
-    {{form.mobile_phone.label_tag}}{{ form.mobile_phone|add_class:'form-control' }}<p>
-    {{form.home_phone.label_tag}}{{ form.home_phone|add_class:'form-control' }}<p>
+    {{form.mobile_phone.label_tag}} <small class='text-muted'>09XX-XXXXXX</small>{{ form.mobile_phone|add_class:'form-control' }}<p>
+    {{form.home_phone.label_tag}} <small class='text-muted'>0X-XXXXXXXX</small>{{ form.home_phone|add_class:'form-control' }}<p>
     {{form.emergency_call.label_tag}}{{ form.emergency_call|add_class:'form-control' }}<p>
+    {{form.eat.label_tag}}{{ form.eat|add_class:'form-control' }}<p>
     <p>
     
     隊員目前最大編號：{{ last_members.number }}

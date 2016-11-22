@@ -15,6 +15,7 @@ class CreateColleagueForm(forms.ModelForm):
 		'mobile_phone',
 		'home_phone',
 		'emergency_call',
+		'eat',
 		]
 
         
@@ -25,6 +26,7 @@ class CreateColleagueForm(forms.ModelForm):
         'mobile_phone': '行動電話',
         'home_phone':'住宅電話',
         'emergency_call':'緊急聯絡人',
+        'eat':'是否搭伙',
         }
 	def __init__(self, *args, **kwargs):
 		super(CreateColleagueForm, self).__init__(*args, **kwargs)
@@ -50,6 +52,11 @@ class EditNumberForm(forms.ModelForm):
         'number': '編號',
         }
 
-
+	def __init__(self, *args, **kwargs):
+		super(EditNumberForm, self).__init__(*args, **kwargs)
+		for field in self.fields.values():
+			field.error_messages = {
+			'required':'請填入{fieldname}'.format(fieldname=field.label),
+			}
 
 EditNumberFormSet = modelformset_factory(UserProfile, form=EditNumberForm, extra=0)

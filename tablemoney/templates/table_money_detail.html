@@ -3,14 +3,13 @@
 
 {% block content %}
 <nav class="navbar">
-<div class="btn-group">
-<a href={% url 'table_money_list' %} class="btn btn-primary"><i class="icon-list-alt"></i> 餐費表格</a>
-<a href={% url 'month_create' %} class="btn btn-primary"><i class="icon-file"></i> 製作表格</a>
-<a href={%  url 'edit_work_day' pk=months.pk  %} class="btn btn-primary"><i class="icon-calendar"></i> 編輯上班天數</a>
-<a href={%  url 'table_money_pay' pk=months.pk  %} class="btn btn-primary"><i class="icon-money"></i> 繳費</a>
-      <!-- Small modal -->
-      <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-sm-{{ profile.number }}"><i class="icon-remove"></i> 刪除本月表格</button>
-</div>
+  <div class="btn-group">
+    <a href={% url 'table_money_list' %} class="btn btn-primary"><i class="icon-list-alt"></i> 餐費表格</a>
+    <a href={% url 'month_create' %} class="btn btn-primary"><i class="icon-file"></i> 製作表格</a>
+    <a href={%  url 'edit_work_day' pk=months.pk  %} class="btn btn-primary"><i class="icon-calendar"></i> 編輯上班天數</a>
+    <a href={%  url 'table_money_pay' pk=months.pk  %} class="btn btn-primary"><i class="icon-money"></i> 繳費</a>
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-sm-{{ profile.number }}"><i class="icon-remove"></i> 刪除本月表格</button>
+  </div>
 </nav>
 
 <p>
@@ -27,13 +26,13 @@
             </div>
             <div class="modal-body">
             
-              <p>是否刪除 {{months.year}} {{months.month}} 表格</p>
+              <p>是否刪除 {{months.year}}年 {{months.month}}月餐費表格</p>
               
             </div>
             <div class="modal-footer">
               
               
-              <a href={{months.remove}} class="btn btn-info">是</a>
+              <a href={{months.remove}} class="btn btn-primary">是</a>
 
               
               <button type="button" class="btn btn-secondary" data-dismiss="modal">否</button>
@@ -45,7 +44,7 @@
 
 
 
-<p><h1>{{ months.year }}年 {{ months.month }}</h1>
+<p><h1>{{ months.year }}年 {{ months.month }}月 餐費表格</h1>
 
 
 <div class="row">
@@ -93,10 +92,10 @@
 
 
 <div class="row">
-<div class="col-lg-6">
-<p>已繳金額：{{ months.current_money }}</p>
-當月總額：{{ months.month_total }}
-</div>
+  <div class="col-lg-6">
+    <p>已繳金額：{{ months.current_money }}</p>
+    當月總額：{{ months.month_total }}
+  </div>
 </div>
 
 {% endblock %}

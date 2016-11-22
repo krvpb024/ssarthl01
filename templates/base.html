@@ -32,8 +32,8 @@
           <div class="nav navbar-nav">
             <a class="nav-item nav-link active" href={% url 'index' %}>SSART <span class="sr-only">(current)</span></a>
             <a class="nav-item nav-link" href={% url 'profile_list' %}>人事</a>
-            <a class="nav-item nav-link" href={% url 'table_money_list' %}>役男勤務</a>
-            <a class="nav-item nav-link" href="#">About</a>
+            <a class="nav-item nav-link" href={% url 'holiday_list' %}>輪休表</a>
+            <a class="nav-item nav-link" href={% url 'table_money_list' %}>餐費表格</a>
           </div>
         </nav>
       </div>
@@ -106,7 +106,7 @@
       <!-- Site footer -->
       <footer class="footer">
       <hr>
-        <p>&copy; 特搜花蓮駐地 </p>
+        <p>&copy; 特搜花蓮駐地 {% now "Y" %}</p>
       </footer>
 
     </div> <!-- /container -->

@@ -19,7 +19,6 @@ def table_money_detail(request, pk):
 	months = get_object_or_404(Month, pk=pk)
 	table_moneys = months.tablemoney_set.all()
 
-
 	if request.method == 'GET':
 		delete_month = request.GET.get('delete')
 		if delete_month:
@@ -35,12 +34,20 @@ def table_money_detail(request, pk):
 
 	return render(request, 'table_money_detail.html', context)
 
+def delete(request):
+	c = TableMoney.objects.all()
+	print(c)
+	c.delete()
+	
+
+	return HttpResponseRedirect('/tablemoney/')
+
 def month_create(request):
 	form = MonthCreateForm()
 
-	old_month = Month.objects.all()
-	if old_month.count() > 10:
-		Month.objects.all().order_by("pk")[0].delete()
+	# old_month = Month.objects.all()
+	# if old_month.count() > 10:
+	# 	Month.objects.all().order_by("pk")[0].delete()
 
 	if request.method == 'POST':
 		form = MonthCreateForm(request.POST)
@@ -51,6 +58,10 @@ def month_create(request):
 				messages.add_message(request, messages.INFO, '此月份表格已製作')
 			else:
 				new_month = form.save()
+				new_month.get_payer()
+
+	
+
 				return HttpResponseRedirect('/tablemoney/' + str(new_month.pk))
 
 	return render(request, 'table_money_create.html', {'form': form})

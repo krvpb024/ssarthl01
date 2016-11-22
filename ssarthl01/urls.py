@@ -25,5 +25,6 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^tablemoney/', include('tablemoney.urls')),
     url(r'^userprofile/', include('userprofile.urls')),
+    url(r'^holiday/', include('holiday.urls')),
     
 ]

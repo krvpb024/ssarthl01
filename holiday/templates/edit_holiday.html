@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<nav class="navbar">
+	<div class="btn-group">
+		<a href={% url 'holiday_list' %} class="btn btn-primary"><i class="icon-list-alt"></i> 輪休表</a>
+		<a href={% url 'holiday_create' %} class="btn btn-primary"><i class="icon-file"></i> 製作表格</a>
+		 <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-sm"><i class="icon-remove"></i> 刪除本月表格</button>
+	</div>
+</nav>
+<p>
+
+
+
+      <div class="modal fade bd-example-modal-sm">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <h4 class="modal-title">確認刪除</h4>
+            </div>
+            <div class="modal-body">
+            
+              <p>是否刪除 {{ holiday_months.year }}年{{ holiday_months.month }}月份輪休預定表</p>
+              
+            </div>
+            <div class="modal-footer">
+              
+              
+              <a href={{holiday_months.remove}} class="btn btn-primary">是</a>
+
+              
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">否</button>
+            </div>
+          </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+      </div><!-- /.modal -->
+
+
+
+<form action="" method="POST">
+    
+    {% csrf_token %}
+	{{ form }}
+    <input type="submit"  class="btn btn-primary">
+</form>
+
+
+
+
+{% endblock %}

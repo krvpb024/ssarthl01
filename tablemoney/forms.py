@@ -22,7 +22,6 @@ class MonthCreateForm(forms.ModelForm):
 		for field in self.fields.values():
 			field.error_messages = {
 			'required':'請填入{fieldname}'.format(fieldname=field.label),
-			'unique':"此月份表格已存在",
 
 			}
 

@@ -19,10 +19,20 @@
 
 
     {{ formset.management_form }}
-    	
+
+
     	{% for form in formset %}
+
+        
+
+
    			<p>
    			<div class="form-group">
+            {% for hidden in form.hidden_fields %}
+            {{ hidden }}
+            {% endfor %}
+
+
     		{{ form.number |add_class:'form-control'}}
     		{{ form.instance.name }}
     		</div>
@@ -33,7 +43,6 @@
             {{ hidden }}
             {% endfor %}    
             {% endfor %}
-
     	{% endfor %}
     	
     <input type="submit" class="btn btn-primary">

@@ -7,7 +7,6 @@ from .models import HolidayMonth, Date, Holiday
 class HolidayInline(admin.TabularInline):
 	model = Holiday
 
-
 class HolidayMonthAdmin(admin.ModelAdmin):
 	inlines = [HolidayInline, ]
 	list_display = ('__str__', 'year')

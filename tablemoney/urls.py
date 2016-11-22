@@ -23,4 +23,5 @@ urlpatterns = [
 	url(r'^month_create/$', views.month_create, name='month_create'),
 	url(r'^(?P<pk>\d+)/edit_work_day/$', views.edit_work_day, name='edit_work_day'),
     url(r'^(?P<pk>\d+)/table_money_pay/$', views.table_money_pay, name='table_money_pay'),
+    url(r'^delete/$', views.delete, name='delete'),
 ]

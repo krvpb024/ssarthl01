@@ -5,30 +5,29 @@
 
 <nav class="navbar">
 	<div class="btn-group">
-	<a href={% url 'table_money_list' %} class="btn btn-primary active"><i class="icon-list-alt"></i> 餐費表格</a>
-	<a href={% url 'month_create' %} class="btn btn-primary"><i class="icon-file"></i> 製作表格</a>
+		<a href={% url 'table_money_list' %} class="btn btn-primary active"><i class="icon-list-alt"></i> 餐費表格</a>
+		<a href={% url 'month_create' %} class="btn btn-primary"><i class="icon-file"></i> 製作表格</a>
 	</div>
 </nav>
 
 <p>
-	<div class="list-group">
-		
-		<h1>餐費表格</h1>
-		<p>
+<div class="list-group">
+	
+	<h1>餐費表格</h1>
+	<p>
 
 
-		{% for month in months %}
+	{% for month in months %}
 		<a href={{ month.get_absolute_url }} class="list-group-item list-group-item-action">
-		{{month.year}}
-		{{month.month}}
+		{{month.year}}年
+		{{month.month}}月
 		總額：{{month.month_total}}
 		{% if month.current_money == month.month_total %}
-		<i class="fa fa-check-circle" aria-hidden="true"></i>
+			<i class="fa fa-check-circle" aria-hidden="true"></i>
 		{% endif %}
-		 </a>
-		
-		{% endfor %}
-	</div>
+		 </a>	
+	{% endfor %}
+</div>
 
 
 {% endblock %}

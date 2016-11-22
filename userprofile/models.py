@@ -16,6 +16,9 @@ class MemberManager(models.Manager):
 class SubstituteManager(models.Manager):
 	def get_queryset(self):
 		return super(SubstituteManager, self).get_queryset().filter(rank='替代役')
+class EatManager(models.Manager):
+	def get_queryset(self):
+		return super(EatManager, self).get_queryset().filter(eat=True)
 
 class UserProfile(models.Model):
 	name = models.CharField(max_length=20)
@@ -24,10 +27,12 @@ class UserProfile(models.Model):
 	mobile_phone = models.CharField(max_length=20, null=True, blank=True)
 	home_phone = models.CharField(max_length=20, null=True, blank=True)
 	emergency_call = models.CharField(max_length=20, null=True, blank=True)
+	eat = models.BooleanField(default=True)
 
 	objects = models.Manager()
 	members = MemberManager()
 	substitutes = SubstituteManager()
+	eats = EatManager()
 
 	def __str__(self):
 		return self.name
