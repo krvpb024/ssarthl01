@@ -5,9 +5,8 @@
 <nav class="navbar">
 <div class="btn-group">
 <a href={% url 'table_money_list' %} class="btn btn-primary"><i class="icon-list-alt"></i> 餐費表格</a>
-<a href={% url 'month_create' %} class="btn btn-primary"><i class="icon-file"></i> 製作表格</a>
-<a href={%  url 'edit_work_day' pk=months.pk  %} class="btn btn-primary"><i class="icon-calendar"></i> 編輯上班天數</a>
-<a href={%  url 'table_money_pay' pk=months.pk  %} class="btn btn-primary active"><i class="icon-money"></i> 繳費</a>
+
+<a href={% url 'table_money_pay' pk=months.pk  %} class="btn btn-primary active"><i class="icon-money"></i> 繳費</a>
       <!-- Small modal -->
       <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-sm-{{ profile.number }}"><i class="icon-remove"></i> 刪除本月表格</button>
 </div>

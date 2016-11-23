@@ -20,8 +20,7 @@ from . import views
 urlpatterns = [
 	url(r'^$', views.table_money_list, name='table_money_list'),
 	url(r'(?P<pk>\d+)/$', views.table_money_detail, name='table_money_detail'),
-	url(r'^month_create/$', views.month_create, name='month_create'),
-	url(r'^(?P<pk>\d+)/edit_work_day/$', views.edit_work_day, name='edit_work_day'),
+	# url(r'^month_create/$', views.month_create, name='month_create'),
     url(r'^(?P<pk>\d+)/table_money_pay/$', views.table_money_pay, name='table_money_pay'),
     url(r'^delete/$', views.delete, name='delete'),
 ]

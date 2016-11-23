@@ -136,5 +136,5 @@ STATICFILES_DIRS = [
     #'/var/www/static/',
 ]
 
-STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static_cdn")
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
 

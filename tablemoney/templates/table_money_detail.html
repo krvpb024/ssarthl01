@@ -5,11 +5,12 @@
 <nav class="navbar">
   <div class="btn-group">
     <a href={% url 'table_money_list' %} class="btn btn-primary"><i class="icon-list-alt"></i> 餐費表格</a>
-    <a href={% url 'month_create' %} class="btn btn-primary"><i class="icon-file"></i> 製作表格</a>
-    <a href={%  url 'edit_work_day' pk=months.pk  %} class="btn btn-primary"><i class="icon-calendar"></i> 編輯上班天數</a>
+    
+    <a href={{ holiday.get_absolute_url }} class="btn btn-primary"><i class="icon-calendar"></i> 編輯上班天數</a>
     <a href={%  url 'table_money_pay' pk=months.pk  %} class="btn btn-primary"><i class="icon-money"></i> 繳費</a>
     <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-sm-{{ profile.number }}"><i class="icon-remove"></i> 刪除本月表格</button>
   </div>
+  <a href="{{ holiday.get_absolute_url }}" class="btn btn-primary">本月輪休表</a>
 </nav>
 
 <p>
@@ -27,7 +28,7 @@
             <div class="modal-body">
             
               <p>是否刪除 {{months.year}}年 {{months.month}}月餐費表格</p>
-              
+              刪除後請至 <big>本月輪休表</big> 點選 <big>本月餐費表格</big> 重新製作
             </div>
             <div class="modal-footer">
               

@@ -8,7 +8,12 @@ from django.contrib import messages
 
 def table_money_list(request):
 	months = Month.objects.all()
-	
+
+	if request.method == 'GET':
+		creat_month = request.GET.get('try_create')
+		if creat_month:
+			messages.add_message(request, messages.INFO, 'ss')
+			return HttpResponseRedirect(reverse("holiday_list"))
 	
 	context = {
 		'months':months,
@@ -16,8 +21,11 @@ def table_money_list(request):
 	return render(request, 'table_money_list.html', context)
 
 def table_money_detail(request, pk):
+	from holiday.models import HolidayMonth
 	months = get_object_or_404(Month, pk=pk)
 	table_moneys = months.tablemoney_set.all()
+	holiday = get_object_or_404(HolidayMonth, month=months.month, year=months.year)
+	
 
 	if request.method == 'GET':
 		delete_month = request.GET.get('delete')
@@ -28,6 +36,7 @@ def table_money_detail(request, pk):
 	context = {
 		'months':months,
 		'table_moneys':table_moneys,
+		'holiday':holiday,
 	}
 
 	
@@ -42,51 +51,29 @@ def delete(request):
 
 	return HttpResponseRedirect('/tablemoney/')
 
-def month_create(request):
-	form = MonthCreateForm()
+# def month_create(request):
+# 	form = MonthCreateForm()
 
-	# old_month = Month.objects.all()
-	# if old_month.count() > 10:
-	# 	Month.objects.all().order_by("pk")[0].delete()
+# 	# old_month = Month.objects.all()
+# 	# if old_month.count() > 10:
+# 	# 	Month.objects.all().order_by("pk")[0].delete()
 
-	if request.method == 'POST':
-		form = MonthCreateForm(request.POST)
-		if form.is_valid():
-			month = form.cleaned_data['month']
-			year = form.cleaned_data['year']
-			if Month.objects.filter(month=month, year=year):
-				messages.add_message(request, messages.INFO, '此月份表格已製作')
-			else:
-				new_month = form.save()
-				new_month.get_payer()
+# 	if request.method == 'POST':
+# 		form = MonthCreateForm(request.POST)
+# 		if form.is_valid():
+# 			month = form.cleaned_data['month']
+# 			year = form.cleaned_data['year']
+# 			if Month.objects.filter(month=month, year=year):
+# 				messages.add_message(request, messages.INFO, '此月份表格已製作')
+# 			else:
+# 				new_month = form.save()
+# 				new_month.get_payer()
 
-	
+# 			return HttpResponseRedirect('/tablemoney/' + str(new_month.pk))
 
-				return HttpResponseRedirect('/tablemoney/' + str(new_month.pk))
-
-	return render(request, 'table_money_create.html', {'form': form})
+# 	return render(request, 'table_money_create.html', {'form': form})
 
 
-
-def edit_work_day(request, pk):
-	months = get_object_or_404(Month, pk=pk)
-	member_count = UserProfile.members.all().count()
-	table_moneys = months.tablemoney_set.all()[:int(member_count)]
-	formset = WorkDayFormSet(queryset=table_moneys)
-
-	if request.method =='POST':
-		formset = WorkDayFormSet(request.POST)
-		if formset.is_valid():
-			formset.save(commit=False)
-			for form in formset:
-				form.save()
-			return HttpResponseRedirect('/tablemoney/' + str(months.pk))
-
-	context = {
-	'formset': formset,
-	'months': months
-	}
-	return render(request, 'edit_work_day.html', context)
 
 def table_money_pay(request, pk):
 	months = get_object_or_404(Month, pk=pk)

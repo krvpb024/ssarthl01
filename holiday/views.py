@@ -25,7 +25,7 @@ def holiday_detail(request, pk):
 	holiday_months = get_object_or_404(HolidayMonth, pk=pk)
 	holidays = Holiday.objects.filter(month=holiday_months)
 	locale.setlocale(locale.LC_ALL, 'zh_CN')
-
+	
 
 	# 顯示星期
 	weekday_list = []
@@ -53,7 +53,7 @@ def holiday_detail(request, pk):
 	for holiday in holidays:
 		holiday_list.append(holiday.date.all())
 
-	
+	# 所有天數
 	foreignkkey_date_list = Date.objects.all()
 
 	# 用來裝日期+O的列表 例如[1, O, O, 4, 5] 表示2跟3放假
@@ -74,17 +74,33 @@ def holiday_detail(request, pk):
 
 	# 分隔好的list 每31個就分割一個 31是以日期列表的長度來定義 foreignkkey_date_list
 	final_holiday_list = chunks((d_list),len(foreignkkey_date_list))
-
-
-	if request.method == 'GET':
-		delete_month = request.GET.get('delete')
-		if delete_month:
-			holiday_months.delete()
-			return HttpResponseRedirect(reverse("holiday_list"))
-
 	final_holiday = zip(holidays, final_holiday_list)
 
 
+	# 刪除表格
+	# if request.method == 'GET':
+	# 	delete_month = request.GET.get('delete')
+	# 	if delete_month:
+	# 		holiday_months.delete()
+	# 		return HttpResponseRedirect(reverse("holiday_list"))
+
+	if request.method == 'GET':
+		delete_month = request.GET.get('delete')
+		create_month = request.GET.get('create')
+		month = request.GET.get('month')
+		year = request.GET.get('year')
+		if delete_month:
+			holiday_months.delete()
+			return HttpResponseRedirect(reverse("holiday_list"))
+		if create_month:
+			tablemoney_month, create = Month.objects.get_or_create(month=month, year=year)
+			if create == False:
+				return HttpResponseRedirect(tablemoney_month.get_absolute_url())
+			else:	
+				tablemoney_month.get_payer()
+				messages.add_message(request, messages.INFO, '本月份餐費表格已重新製作')
+				return HttpResponseRedirect(tablemoney_month.get_absolute_url())
+			
 	context = {
 		'holiday_months':holiday_months,
 		'holidays':holidays,
@@ -93,6 +109,7 @@ def holiday_detail(request, pk):
 		'date_weekday_list':date_weekday_list,
 		'final_holiday_list':final_holiday_list,
 		'final_holiday':final_holiday,
+		
 	}
 
 	return render(request,'holiday_detail.html' , context)
@@ -113,6 +130,8 @@ def holiday_create(request):
 			else:
 				new_month = form.save()
 				new_month.get_name()
+				messages.add_message(request, messages.INFO, '本月餐費表格同時製作完成')
+
 				return HttpResponseRedirect('/holiday/' + str(new_month.pk))
 
 	return render(request, 'holiday_month_create.html', {'form': form})

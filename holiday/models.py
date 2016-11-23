@@ -1,6 +1,6 @@
 from django.db import models
 from userprofile.models import UserProfile
-from django.db.models.signals import pre_save, post_save, post_delete
+from django.db.models.signals import pre_save, post_save, post_delete, pre_delete
 from django.core.urlresolvers import reverse
 from django.shortcuts import get_object_or_404, render, HttpResponseRedirect
 
@@ -45,7 +45,25 @@ class HolidayMonth(models.Model):
 	def remove(self):
 		return '%s/?delete=True' %(self.pk)
 
+	def create_tablemoney_month(self):
+		return '?month={}&year={}&create=True'.format(self.month, self.year)
 
+	class Meta:
+		ordering = ['-pk']
+
+def create_table_money_post_save_receiver(sender, instance, *args, **kwargs):
+	from tablemoney.models import Month
+	tablemoney_month, create = Month.objects.get_or_create(month=instance.month, year=instance.year)
+	tablemoney_month.get_payer()
+
+post_save.connect(create_table_money_post_save_receiver, sender=HolidayMonth)
+
+def table_money_post_delete_receiver(sender, instance, *args, **kwargs):
+	from tablemoney.models import Month
+	month = Month.objects.get(month=instance.month, year=instance.year)
+	month.delete()
+
+pre_delete.connect(table_money_post_delete_receiver, sender=HolidayMonth)
 
 
 class Date(models.Model):

@@ -57,6 +57,9 @@ class Month(models.Model):
 	def remove(self):
 		return '%s/?delete=True' %(self.pk)
 
+	def try_create(self):
+		return '/?try_create=True'		
+
 	def get_payer(self):
 		payers = UserProfile.eats.all()
 		month = Month.objects.get(month=self.month, year=self.year)
