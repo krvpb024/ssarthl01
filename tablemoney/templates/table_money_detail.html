@@ -8,39 +8,12 @@
     
     <a href={{ holiday.get_absolute_url }} class="btn btn-primary"><i class="icon-calendar"></i> 編輯上班天數</a>
     <a href={%  url 'table_money_pay' pk=months.pk  %} class="btn btn-primary"><i class="icon-money"></i> 繳費</a>
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-sm-{{ profile.number }}"><i class="icon-remove"></i> 刪除本月表格</button>
+
   </div>
   <a href="{{ holiday.get_absolute_url }}" class="btn btn-primary">本月輪休表</a>
 </nav>
 
 <p>
-
- 
-      <div class="modal fade bd-example-modal-sm-{{ profile.number }}">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-              <h4 class="modal-title">確認刪除</h4>
-            </div>
-            <div class="modal-body">
-            
-              <p>是否刪除 {{months.year}}年 {{months.month}}月餐費表格</p>
-              刪除後請至 <big>本月輪休表</big> 點選 <big>本月餐費表格</big> 重新製作
-            </div>
-            <div class="modal-footer">
-              
-              
-              <a href={{months.remove}} class="btn btn-primary">是</a>
-
-              
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">否</button>
-            </div>
-          </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-      </div><!-- /.modal -->
 
 
 
@@ -58,7 +31,6 @@
           <th>上班天數</th>
           <th>餐費金額</th>
           <th>收款人</th>
-          <th>收款日期</th>
           <th>備註</th>
         </tr>
       </thead>
@@ -72,7 +44,7 @@
           <td>{{table_money.workday_count}}</td>
           <td>{{table_money.totle_price}}</td>
           <td>{{table_money.payee}} </td>
-          <td>{{table_money.pay_date.month}}/{{table_money.pay_date.day}}</td>
+          
 
           {% else %}
           <td>{{table_money.name.number}}</td>

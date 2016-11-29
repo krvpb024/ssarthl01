@@ -27,11 +27,11 @@ def table_money_detail(request, pk):
 	holiday = get_object_or_404(HolidayMonth, month=months.month, year=months.year)
 	
 
-	if request.method == 'GET':
-		delete_month = request.GET.get('delete')
-		if delete_month:
-			months.delete()
-			return HttpResponseRedirect('/tablemoney/')
+	# if request.method == 'GET':
+	# 	delete_month = request.GET.get('delete')
+	# 	if delete_month:
+	# 		months.delete()
+	# 		return HttpResponseRedirect('/tablemoney/')
 
 	context = {
 		'months':months,

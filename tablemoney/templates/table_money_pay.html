@@ -7,36 +7,10 @@
 <a href={% url 'table_money_list' %} class="btn btn-primary"><i class="icon-list-alt"></i> 餐費表格</a>
 
 <a href={% url 'table_money_pay' pk=months.pk  %} class="btn btn-primary active"><i class="icon-money"></i> 繳費</a>
-      <!-- Small modal -->
-      <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-sm-{{ profile.number }}"><i class="icon-remove"></i> 刪除本月表格</button>
+      
 </div>
 </nav>
 
-      <div class="modal fade bd-example-modal-sm-{{ profile.number }}">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-              <h4 class="modal-title">確認刪除</h4>
-            </div>
-            <div class="modal-body">
-            
-              <p>是否刪除 {{months.year}} {{months.month}} 表格</p>
-              
-            </div>
-            <div class="modal-footer">
-              
-              
-              <a href={{months.remove}} class="btn btn-primary">是</a>
-
-              
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">否</button>
-            </div>
-          </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-      </div><!-- /.modal -->
 
 <p>
 

@@ -54,30 +54,29 @@ class Month(models.Model):
 	class Meta:
 		ordering = ['-pk']
 
-	def remove(self):
-		return '%s/?delete=True' %(self.pk)
+	# def remove(self):
+	# 	return '%s/?delete=True' %(self.pk)
 
 	def try_create(self):
 		return '/?try_create=True'		
 
-	def get_payer(self):
+	# def get_payer(self):
+	# 	payers = UserProfile.eats.all()
+	# 	month = Month.objects.get(month=self.month, year=self.year)
+	# 	year = month.year
+	# 	for payer in payers:
+	# 		table_money, create = TableMoney.objects.get_or_create(name=payer, month=month, year=year)
+
+
+def get_payer_post_save_receiver(sender, instance, created, *args, **kwargs):
+	if created:
 		payers = UserProfile.eats.all()
-		month = Month.objects.get(month=self.month, year=self.year)
+		month = Month.objects.get(month=instance.month, year=instance.year)
 		year = month.year
 		for payer in payers:
 			table_money, create = TableMoney.objects.get_or_create(name=payer, month=month, year=year)
 
-
-# def get_payer_post_save_receiver(sender, instance, *args, **kwargs):
-# 	payers = UserProfile.objects.all()
-# 	month = Month.objects.get(month=instance.month, year=instance.year)
-# 	print(month)
-# 	year = month.year
-# 	print(year)
-# 	for payer in payers:
-# 		table_money, create = TableMoney.objects.get_or_create(name=payer, month=month, year=year)
-
-# post_save.connect(get_payer_post_save_receiver, sender=Month)
+post_save.connect(get_payer_post_save_receiver, sender=Month)
 
 
 
@@ -112,10 +111,9 @@ def get_price_pre_save_receiver(sender, instance, *args, **kwargs):
 		holiday = get_object_or_404(Holiday, name=instance.name, year=instance.year, identify=instance.identify)
 
 		if instance.name.rank == '隊員':
-			if holiday.work_day_count == "尚未排假":
-				instance.note = "尚未排假"
+			if holiday.work_day_count == "":
+				pass
 			else:
-				instance.note = ""
 				instance.workday_count = holiday.work_day_count
 				instance.day_price = 110
 				day_price = instance.day_price

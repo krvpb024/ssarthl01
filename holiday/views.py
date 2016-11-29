@@ -96,8 +96,7 @@ def holiday_detail(request, pk):
 			tablemoney_month, create = Month.objects.get_or_create(month=month, year=year)
 			if create == False:
 				return HttpResponseRedirect(tablemoney_month.get_absolute_url())
-			else:	
-				tablemoney_month.get_payer()
+			else:
 				messages.add_message(request, messages.INFO, '本月份餐費表格已重新製作')
 				return HttpResponseRedirect(tablemoney_month.get_absolute_url())
 			
@@ -129,7 +128,7 @@ def holiday_create(request):
 				messages.add_message(request, messages.INFO, '此月份表格已製作')
 			else:
 				new_month = form.save()
-				new_month.get_name()
+				# new_month.get_name()
 				messages.add_message(request, messages.INFO, '本月餐費表格同時製作完成')
 
 				return HttpResponseRedirect('/holiday/' + str(new_month.pk))

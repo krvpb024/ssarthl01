@@ -34,13 +34,13 @@ class HolidayMonth(models.Model):
 	def get_absolute_url(self):
 		return reverse ('holiday_detail', kwargs={'pk':self.pk})
 
-	def get_name(self):
-		names = UserProfile.objects.all()
-		month = HolidayMonth.objects.get(month=self.month, year=self.year)
-		year = month.year
-		for name in names:
-			holiday, create = Holiday.objects.get_or_create(name=name, month=month, year=year)
-			holiday.save()
+	# def get_name(self):
+	# 	names = UserProfile.objects.all()
+	# 	month = HolidayMonth.objects.get(month=self.month, year=self.year)
+	# 	year = month.year
+	# 	for name in names:
+	# 		holiday, create = Holiday.objects.get_or_create(name=name, month=month, year=year)
+	# 		holiday.save()
 
 	def remove(self):
 		return '%s/?delete=True' %(self.pk)
@@ -51,10 +51,21 @@ class HolidayMonth(models.Model):
 	class Meta:
 		ordering = ['-pk']
 
+def get_name_post_save_receiver(sender, instance, created, *args, **kwargs):
+	if created:
+		names = UserProfile.objects.all()
+		month = HolidayMonth.objects.get(month=instance.month, year=instance.year)
+		year = month.year
+		for name in names:
+			holiday, create = Holiday.objects.get_or_create(name=name, month=month, year=year)
+			holiday.save()
+
+post_save.connect(get_name_post_save_receiver, sender=HolidayMonth)
+
 def create_table_money_post_save_receiver(sender, instance, *args, **kwargs):
 	from tablemoney.models import Month
 	tablemoney_month, create = Month.objects.get_or_create(month=instance.month, year=instance.year)
-	tablemoney_month.get_payer()
+	
 
 post_save.connect(create_table_money_post_save_receiver, sender=HolidayMonth)
 
@@ -76,7 +87,7 @@ class Holiday(models.Model):
 	year = models.PositiveIntegerField()
 	month = models.ForeignKey(HolidayMonth)
 	date = models.ManyToManyField(Date, blank=True)
-	work_day_count = models.CharField(max_length=20, default='尚未排假')
+	work_day_count = models.CharField(max_length=20, blank=True)
 	identify = models.CharField(max_length=20)
 
 	def __str__(self):
