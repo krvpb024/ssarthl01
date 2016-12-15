@@ -9,7 +9,11 @@ import datetime
 def index(request):
 	members = UserProfile.members.all().exclude(number=1)
 	substitutes = UserProfile.substitutes.all()
-	captain = UserProfile.members.get(number=1)
+	try:
+		captain = UserProfile.members.get(number=1)
+	except UserProfile.DoesNotExist:
+		captain = ''
+	
 
 	now = datetime.datetime.now().year
 	

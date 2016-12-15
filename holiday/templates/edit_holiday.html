@@ -1,12 +1,26 @@
 {% extends 'base.html' %}
+{% load widget_tweaks %}
 {% block content %}
+
+
+<style>
+.hidden {
+    display: none;
+}
+
+.over {
+    background-color: yellow;
+}
+</style>
 
 <nav class="navbar">
 	<div class="btn-group">
 		<a href={% url 'holiday_list' %} class="btn btn-primary"><i class="icon-list-alt"></i> 輪休表</a>
 		<a href={% url 'holiday_create' %} class="btn btn-primary"><i class="icon-file"></i> 製作表格</a>
+    <a href={% url 'holiday_detail' pk=holiday_months.pk %} class="btn btn-primary"><i class="icon-file"></i> 回到表格</a>
 		 <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-sm"><i class="icon-remove"></i> 刪除本月表格</button>
 	</div>
+  <a href="{{ holiday_months.create_tablemoney_month }}" class="btn btn-primary">本月餐費表格</a>
 </nav>
 <p>
 
@@ -40,13 +54,116 @@
 
 
 
-<form action="" method="POST">
-    
-    {% csrf_token %}
-	{{ form }}
+
+
+<form action="" method="POST">{% csrf_token %}
+    {{ formset.management_form }}
+
+
+<h1>{{ holiday_months.year }}年 {{ holiday_months.month }}月份輪休預定表編輯</h1>
+<p>
+<strong>>本月役男有{{ holiday_months.holiday_count }}天假</strong>
+
+<table class="table table-sm table-bordered">
+  <thead class="table-active">
+    <tr>
+      <th></th>
+      <th></th>  
+      
+      {% for date in date_list %}<th>{{ date }}</th>{% endfor %}
+    </tr>
+    <tr>
+      <th>編號</th>
+      <th>姓名</th>      
+      {% for weekday in weekday_list %}
+
+      <th>
+
+
+      {{ weekday }}
+
+
+      </th>
+
+      {% endfor %}
+    </tr>
+  </thead>
+  
+  <tbody>
+  {% for form in formset %}
+  {% if form.instance.name.rank = "隊員" %}
+    <tr class="member">
+    <th>{{ form.instance.name.number }}</th>
+    <th>{{ form.instance.name }}{{ form.name |add_class:'hidden'}}</th>
+
+
+
+    {% for date in form.date %}
+    {% if forloop.counter0 < weekday_list|length %}
+
+    <td>{{ date.tag }}</td>
+
+    {% endif %}
+    {% endfor %}
+    {{ form.holiday_count|add_class:'hidden' }}
+    </tr>
+
+    {% else %}
+
+    <tr class="substitute">
+    <th>{{ form.instance.name.number }}</th>
+    <th>{{ form.instance.name }}{{ form.name |add_class:'hidden'}}</th>
+
+
+
+    {% for date in form.date %}
+    {% if forloop.counter0 < weekday_list|length %}
+
+    <td>{{ date.tag }}</td>
+
+    {% endif %}
+    {% endfor %}
+    {{ form.holiday_count|add_class:'hidden' }}
+    </tr>
+
+    {% endif %}
+    {% endfor %} 
+  </tbody>
+</table>
+            {% for form in formset %}    
+                {% for hidden in form.hidden_fields %}
+                    {{ hidden }}
+                {% endfor %}    
+            {% endfor %}
+
+
     <input type="submit"  class="btn btn-primary">
 </form>
 
+
+<script type="text/javascript">
+  
+
+    $(".substitute").change(function () {
+        var x = $(this).find('input:checked').length;
+        if (x > {{ holiday_months.holiday_count }}) {
+          $(this).addClass("over");
+          
+        } else {
+          $(this).removeClass("over");
+          
+        }
+
+        if ($(".substitute").hasClass('over') ) {
+          $("input[type=submit]").attr("disabled", true);
+        } else {
+
+          $("input[type=submit]").attr("disabled", false);
+        }
+    });
+
+
+</script>
 
 
 

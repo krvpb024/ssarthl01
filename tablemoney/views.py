@@ -87,6 +87,7 @@ def table_money_pay(request, pk):
 			formset.save(commit=False)
 			for form in formset:
 				form.save()
+			messages.add_message(request, messages.INFO, '繳費完成')
 			return HttpResponseRedirect('/tablemoney/' + str(months.pk))
 
 	context = {

@@ -17,6 +17,7 @@
     {% csrf_token %}
         <p>{{form.year.label_tag}}{{ form.year|add_class:'form-control' }}</p>
         <p>{{form.month.label_tag}}{{ form.month|add_class:'form-control' }}</p>
+        <p>{{form.holiday_count.label_tag}}{{ form.holiday_count|add_class:'form-control' }}</p>
     <input type="submit" class="btn btn-primary">
 </form>
 

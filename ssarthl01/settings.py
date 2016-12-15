@@ -130,11 +130,12 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-
+# 可以放公用的static，例如custom css 用 collect static就會被複製進STATIC_ROOT
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static"),
+    os.path.join(BASE_DIR, "custom_static")
     #'/var/www/static/',
 ]
 
-STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static")
+# 真的使用的檔案
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
 

@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -12,12 +13,13 @@
     <title>特搜花蓮駐地</title>
 
     <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.css' %}">
     <!-- font awesome -->
     <link rel="stylesheet" href="/static/font-awesome/css/font-awesome.css">
     <link href="//netdna.bootstrapcdn.com/font-awesome/3.1.1/css/font-awesome.css" rel="stylesheet"> 
 
     <!-- Custom styles for this template -->
+    <script src="/static/jquery-3.1.1.min.js"></script>
     
   </head>
 
@@ -45,30 +47,52 @@
       </div>
 
       <!-- 錯誤訊息 -->
-      {% if form.errors %}
-          {% for field in form %}
-              {% for error in field.errors %}
-              
+
+
+        {% if form.errors %}
+            {% for field in form %}
+                {% for error in field.errors %}
                   <div class="alert alert-success" role="alert">
                   <button type="button" class="close" data-dismiss="alert" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
-                      <strong>{{ error|escape }}</strong>
-                      </div>
-                  
-              {% endfor %}
-          {% endfor %}
-          {% for error in form.non_field_errors %}
-
-
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <strong>{{ error|escape }}</strong>
+                    </div>
+                {% endfor %}
+            {% endfor %}
+            {% for error in form.non_field_errors %}
+                  <div class="alert alert-success" role="alert">
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
+                    <strong>{{ error|escape }}</strong>
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        {% if formset.errors %}
+            {% for form in formset %}
+              {% for error in form.field.errors %}
+                <div class="alert alert-success" role="alert">
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                    <strong>{{ error|escape }}</strong>
+                </div>
+              {% endfor %}
+            {% endfor %}
+            {% for form in formset %}
+            {% for error in form.non_field_errors %}
               <div class="alert alert-success" role="alert">
-                  <strong>{{ error|escape }}</strong>
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+              </button>
+                <strong>{{ error|escape }}</strong>
               </div>
-          {% endfor %}
-      {% endif %}
+              {% endfor %}
+            {% endfor %}
+        {% endif %}
+
 
 
       {% if messages %}
@@ -106,10 +130,11 @@
       <!-- Site footer -->
       <footer class="footer">
       <hr>
-        <p>&copy; 特搜花蓮駐地 {% now "Y" %}</p>
+        <p>&copy; 特搜花蓮駐地 2016-{% now "Y" %}</p>
       </footer>
 
     </div> <!-- /container -->
+
 
 
     <!-- Bootstrap core JavaScript
@@ -128,6 +153,7 @@
 <!--     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js" integrity="sha384-BLiI7JTZm+JWlgKa0M0kGRpJbF2J8q+qreVrKBC47e3K6BW78kGLrCkeRX6I9RoK" crossorigin="anonymous"></script>
  -->    <script src="/static/bootstrap/js/bootstrap.js""></script>
     <script src="https://use.fontawesome.com/544505ee6d.js"></script>
+
     <!-- <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script> -->
   </body>
 </html>

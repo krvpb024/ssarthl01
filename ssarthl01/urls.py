@@ -16,7 +16,8 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 from .views import index
-
+from django.conf import settings
+from django.conf.urls.static import static
 
 
 
@@ -27,4 +28,5 @@ urlpatterns = [
     url(r'^userprofile/', include('userprofile.urls')),
     url(r'^holiday/', include('holiday.urls')),
     
-]
+]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+

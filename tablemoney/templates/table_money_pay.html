@@ -14,7 +14,7 @@
 
 <p>
 
-<h1>{{ months.year }}年 {{ months.month }}</h1>
+<p><h1>{{ months.year }}年 {{ months.month }}月 餐費表格</h1>
 
 <form action="." method="POST">
 <table class="table table-hover">
@@ -43,7 +43,7 @@
       <td>{{ form.instance.name.number }}</td>
       <td>{{ form.instance.name }}</td>
       <td>{{ form.instance.totle_price }}</td>
-      <td><div class="btn-group" ><label class="btn btn-outline-info">{{ form.pay_off }} 繳費</label></div></td>
+      <td><div class="btn-group" ><label class="btn btn-outline-primary">{{ form.pay_off }} 繳費</label></div></td>
       <td>{{ form.payee|add_class:'form-control' }}</td>
       <td>{{ form.note|add_class:'form-control' }}</td>
 

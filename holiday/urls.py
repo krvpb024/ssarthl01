@@ -21,5 +21,5 @@ urlpatterns = [
 	url(r'^$',views.holiday_list , name='holiday_list'),
     url(r'(?P<pk>\d+)/$',views.holiday_detail , name='holiday_detail'),
     url(r'^holiday_create$',views.holiday_create , name='holiday_create'),
-    url(r'(?P<month_pk>\d+)/(?P<name_pk>\d+)/edit_holiday$',views.edit_holiday , name='edit_holiday'),
+    url(r'(?P<month_pk>\d+)/edit_holiday$',views.edit_holiday , name='edit_holiday'),
 ]

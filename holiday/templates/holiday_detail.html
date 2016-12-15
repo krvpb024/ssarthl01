@@ -6,6 +6,7 @@
 	<div class="btn-group">
 		<a href={% url 'holiday_list' %} class="btn btn-primary"><i class="icon-list-alt"></i> 輪休表</a>
 		<a href={% url 'holiday_create' %} class="btn btn-primary"><i class="icon-file"></i> 製作表格</a>
+    <a href={% url 'edit_holiday' month_pk=holiday_months.pk %} class="btn btn-primary"><i class="icon-file"></i> 編輯表格</a>
 		 <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-sm"><i class="icon-remove"></i> 刪除本月表格</button>
 	</div>
   <a href="{{ holiday_months.create_tablemoney_month }}" class="btn btn-primary">本月餐費表格</a>
@@ -44,7 +45,7 @@
 <h1>{{ holiday_months.year }}年 {{ holiday_months.month }}月份輪休預定表</h1>
 <p>
 
-
+<strong>>本月役男有{{ holiday_months.holiday_count }}天假</strong>
 
 
 
@@ -80,13 +81,16 @@
       <th>{{ holiday.0.name.number }}</th>
       <th>{{ holiday.0.name }}</th>
       {% for dates in holiday.1 %}
-      <td>{{ dates|slice:":29" }}</td>
+      {% if forloop.counter0 < weekday_list|length %}
+      <td>{{ dates }}</td>
+      {% endif %}
       {% endfor %}
-      <td><a href={% url "edit_holiday" month_pk=holiday.0.month.pk name_pk=holiday.0.name.pk %}>編輯</a></td>
+      
     </tr>
     {% endfor %}
   </tbody>
 </table>
+
 
 
 
