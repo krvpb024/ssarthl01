@@ -36,6 +36,7 @@ def holiday_detail(request, pk):
 		date += datetime.timedelta(days=1)
 		weekday_list.append(date.strftime('%a'))
 
+
 	# 顯示日期
 	date_list = []
 	date = datetime.datetime(int(holiday_months.year)+1911, int(holiday_months.month), 1)
@@ -108,7 +109,7 @@ def holiday_detail(request, pk):
 		'date_weekday_list':date_weekday_list,
 		'final_holiday_list':final_holiday_list,
 		'final_holiday':final_holiday,
-		'test':2,
+		
 		
 	}
 
@@ -201,7 +202,7 @@ def edit_holiday(request, month_pk):
 			formset.save(commit=False)
 			for form in formset:
 				edit_holiday = form.save()
-				edit_holiday.work_day_count = form.cleaned_data['date'].count()
+				edit_holiday.work_day_count = numdays+1 - form.cleaned_data['date'].count()
 				edit_holiday = form.save()
 			messages.add_message(request, messages.INFO, '輪休表編輯完成')
 			return HttpResponseRedirect('/holiday/' + str(holiday_months.pk))
