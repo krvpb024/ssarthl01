@@ -27,6 +27,7 @@ urlpatterns = [
     url(r'^tablemoney/', include('tablemoney.urls')),
     url(r'^userprofile/', include('userprofile.urls')),
     url(r'^holiday/', include('holiday.urls')),
+    url(r'^train/', include('train.urls')),
     
-]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

@@ -46,7 +46,7 @@ INSTALLED_APPS = [
     'userprofile',
     'tablemoney',
     'holiday',
-
+    'train',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -138,4 +138,8 @@ STATICFILES_DIRS = [
 
 # 真的使用的檔案
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
+
+MEDIA_URL = '/media/'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 

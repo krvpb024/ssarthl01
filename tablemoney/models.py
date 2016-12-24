@@ -89,8 +89,8 @@ class TableMoney(models.Model):
 	workday_count = models.PositiveIntegerField(default=0)
 	pay_off = models.BooleanField(default=False)
 	payee = models.ForeignKey(Payee, null=True, blank=True)
-	pay_date = models.DateTimeField(auto_now_add=False, auto_now=True, null=True)
 	note = models.CharField(max_length=20, blank=True)
+	pay_date = models.CharField(max_length=20, blank=True)
 	identify = models.CharField(max_length=20)
 
 	def __str__(self):

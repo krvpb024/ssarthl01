@@ -1,0 +1,141 @@
+<script src="/static/jquery-3.1.1.min.js"></script>
+
+<style type="text/css">
+
+	@media print
+	{    
+	    .no-print, .no-print *
+	    {
+	        display: none !important;
+	    }
+	}
+	.word {
+
+		font-family:serif;
+		font-size: 18px;
+	}
+
+	table {
+	    border-collapse: collapse;
+	}
+
+	th {
+	    text-align: left;
+	}
+
+	table#top {
+
+		width: 720px;
+		border-top: 1px solid black;
+		border-left: 1px solid black;
+		border-right: 1px solid black;
+
+
+	}
+
+	table#bottom  {
+		
+		width: 720px;
+		border-bottom: 1px solid black;
+		border-left: 1px solid black;
+		border-right: 1px solid black;
+	}
+
+	th {
+
+		padding: 5px
+	}
+
+	th.bottom {
+		border-top: 1px solid black;
+		border-bottom: 1px solid black;
+		border-left: 1px solid black;
+		border-right: 1px solid black;
+	}
+
+	div.title {
+
+		font-size: 40px;
+		text-align:center;
+		
+		
+	}
+
+	div.title2 {
+		font-size: 20px;
+		text-align:center;
+		
+		
+	}
+
+	div.title3 {
+
+		font-size: 35px;
+		text-align:center;
+		
+		
+	}
+
+	#row2 {
+
+		width: 270px;
+
+	}
+	.row3 {
+
+		width: 50px;
+	}
+
+	th.img {
+
+		text-align:center;
+	}
+
+	img.imgs {
+		width: 520
+	}
+</style> 
+
+      <form>
+         <input type="button" value="按我列印" class="no-print" />
+      </form>
+<script type="text/javascript">
+
+$('input[type=button]').click(function(){
+     window.print();
+});	
+
+</script>
+
+
+<div id="print">
+<table id='top'>
+	
+
+    <tr>
+    <th colspan="2" id='row1'><div class="title3 word">內 政 部 消 防 署 特 種 搜 救 隊 花 蓮 分 隊</div></th>
+    </th>
+	<tr><th rowspan="2" id='row2'><div class="title2 word">組　　　合　　　訓　　　練<br/>體　　技　　能　　訓　　練</div></th></tr>
+	<tr><th><div class="title word">成　　果　　相　　片</div></th></tr>
+	
+
+</th>
+    </tr>
+
+</table>
+<table id='bottom'>
+
+
+	<tr><th colspan="2" class='bottom img'><img src='{{ zhudi.img.url }}' class="imgs" /></th></tr>
+	<tr><th class='bottom row3 word'>項目</th><th class="bottom word">{{ zhudi.session }}</th></tr>
+	<tr><th class='bottom row3 word'>日期</th><th class='bottom word'>{{ zhudi.date }}</th></tr>
+	<tr><th colspan="2" class='bottom img'><img src='{{ zhudi.img2.url }}' class="imgs"/></th></tr>
+	<tr><th class='bottom row3 word'>項目</th><th class='bottom word'>{{ zhudi.session }}</th></tr>
+	<tr><th class='bottom row3 word'>日期</th><th class='bottom word'>{{ zhudi.date }}</th></tr>
+	
+	
+</table>
+
+
+
+</div>

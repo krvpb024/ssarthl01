@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<p>
+<div class="list-group">
+	
+	<h1>駐地常訓成果表格</h1>
+	<p>
+
+
+	{% for zhudi in zhudis %}
+		<a href={{ zhudi.get_absolute_url }} class="list-group-item list-group-item-action">
+		{{ zhudi.date }}{{ zhudi.session }}
+		
+		 </a>	
+	{% endfor %}
+</div>
+
+{% endblock %}
+

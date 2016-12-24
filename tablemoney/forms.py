@@ -47,6 +47,7 @@ class TableMoneyPayForm(forms.ModelForm):
 		fields = [
 		'pay_off',
 		'payee',
+		'pay_date',
 		'note',
 		]
 
