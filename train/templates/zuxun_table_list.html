@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+
+<nav class="navbar">
+	<div class="btn-group">
+		<a href={% url 'zuxun_table_list' %} class="btn btn-primary active">人機組訓表格</a>
+		<a href={% url 'zuxun_table_create' %} class="btn btn-primary">製作表格</a>
+		<a href={% url 'zuxun_session_create' %} class="btn btn-primary">項目編輯</a>
+	</div>
+</nav>
+<p>
+
+<div class="list-group">
+	
+	<h1>人機組訓成果表格</h1>
+	<p>
+
+
+	{% for zuxun in zuxuns %}
+		<a href={{ zuxun.get_absolute_url }} class="list-group-item list-group-item-action">
+		{{ zuxun.date }} {{ zuxun.session }}
+		
+		 </a>	
+	{% endfor %}
+</div>
+
+
+
+{% endblock %}
+

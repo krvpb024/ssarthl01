@@ -2,8 +2,15 @@
 
 {% block content %}
 
+<nav class="navbar">
+	<div class="btn-group">
+		<a href={% url 'zhudi_table_list' %} class="btn btn-primary active">駐地常訓表格</a>
+		<a href={% url 'zhudi_table_create' %} class="btn btn-primary">製作表格</a>
+		<a href={% url 'zhudi_session_create' %} class="btn btn-primary">項目編輯</a>
+	</div>
+</nav>
 <p>
-<div class="list-group">
+	<div class="list-group">
 	
 	<h1>駐地常訓成果表格</h1>
 	<p>
@@ -11,11 +18,11 @@
 
 	{% for zhudi in zhudis %}
 		<a href={{ zhudi.get_absolute_url }} class="list-group-item list-group-item-action">
-		{{ zhudi.date }}{{ zhudi.session }}
-		
-		 </a>	
+		{{ zhudi.date }} {{ zhudi.session }}
+		</a>	
 	{% endfor %}
 </div>
+
 
 {% endblock %}
 

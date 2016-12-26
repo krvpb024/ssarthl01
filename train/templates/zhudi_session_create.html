@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% block content %}
+
+
+
+
+
+<nav class="navbar">
+	<div class="btn-group">
+		<a href={% url 'zhudi_table_list' %} class="btn btn-primary">駐地常訓表格</a>
+		<a href={% url 'zhudi_table_create' %} class="btn btn-primary">製作表格</a>
+		<a href={% url 'zhudi_session_create' %} class="btn btn-primary active">項目編輯</a>
+	</div>
+</nav>
+<p>
+
+<div class='row'>
+
+	<div class="col-lg-4">
+	<h1>駐地常訓項目新增</h1><p>
+		<form action="" method="POST">
+		{% csrf_token %}
+		<p>{{ form.name.label_tag }} {{ form.name }}</p>
+		<input type="submit" class="btn btn-primary">
+		</form>
+	</div>
+	<div class="col-lg-8">
+		<h1>目前項目</h1>
+		{% for session in zhudi_sessions %}
+
+		<!-- Small modal -->
+		<div class="modal fade bd-example-modal-sm-{{ session.pk }}">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						<h4 class="modal-title">確認刪除</h4>
+					</div>
+					<div class="modal-body">
+					
+						<p>是否刪除{{ session.name }}</p>
+						
+					</div>
+					<div class="modal-footer">
+						
+						<a href={% url 'zhudi_session_delete' pk=session.pk %} class="btn btn-primary">是</a>
+						
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">否</button>
+					</div>
+				</div><!-- /.modal-content -->
+			</div><!-- /.modal-dialog -->
+		</div><!-- /.modal -->
+
+
+		<p><button type="button" class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target=".bd-example-modal-sm-{{ session.pk }}"><i class="fa fa-times-circle fa-2x" aria-hidden="true"></i></button> {{ session }}</p>
+		{% endfor %}
+
+		
+
+
+
+	</div>
+</div>
+{% endblock %}

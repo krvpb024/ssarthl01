@@ -4,9 +4,9 @@
 
 <nav class="navbar">
 	<div class="btn-group">
-		<a href={% url 'holiday_list' %} class="btn btn-primary"><i class="icon-list-alt"></i> 輪休表</a>
-		<a href={% url 'holiday_create' %} class="btn btn-primary"><i class="icon-file"></i> 製作表格</a>
-    <a href={% url 'edit_holiday' month_pk=holiday_months.pk %} class="btn btn-primary"><i class="icon-file"></i> 編輯表格</a>
+		<a href={% url 'holiday_list' %} class="btn btn-primary">輪休表</a>
+		<a href={% url 'holiday_create' %} class="btn btn-primary">製作表格</a>
+    <a href={% url 'edit_holiday' month_pk=holiday_months.pk %} class="btn btn-primary">
 		 <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-sm"><i class="icon-remove"></i> 刪除本月表格</button>
 	</div>
   <a href="{{ holiday_months.create_tablemoney_month }}" class="btn btn-primary">本月餐費表格</a>

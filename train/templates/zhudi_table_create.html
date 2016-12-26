@@ -1,9 +1,33 @@
 {% extends 'base.html' %}
+{% load widget_tweaks %}
 {% block content %}
 
+
+<nav class="navbar">
+	<div class="btn-group">
+		<a href={% url 'zhudi_table_list' %} class="btn btn-primary">駐地常訓表格</a>
+		<a href={% url 'zhudi_table_create' %} class="btn btn-primary active">製作表格</a>
+		<a href={% url 'zhudi_session_create' %} class="btn btn-primary">項目編輯</a>
+	</div>
+</nav>
+
 <form action="" method="POST" enctype="multipart/form-data">{% csrf_token %}
-{{ form.as_p }}
+<p>訓練項目： {{ form.session|add_class:'form-control' }}</p>
+<p>訓練日期： {{ form.date|add_class:'form-control date' }}</p>
+<p>表格照片： <small class='text-muted'>選擇兩張照片</small>{{ form.img|add_class:'form-control' }}</p>
+<p>其餘照片： <small class='text-muted'>最多4張照片</small>{{ form.img3|add_class:'form-control' }}</p>
     <input type="submit" class="btn btn-primary">
+
 </form>
 
+
+<script type="text/javascript">
+
+$('.date').datepicker({
+
+  monthNames: ['一月','二月','三月','四月','五月','六月','七月','八月','九月','十月','十一月','十二月'],
+  dateFormat: 'yy/mm/dd',  
+  });
+
+</script>
 {% endblock %}
