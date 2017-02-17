@@ -5,8 +5,8 @@
 
 <nav class="navbar">
 	<div class="btn-group">
-		<a href={% url 'zuxun_table_list' %} class="btn btn-primary active">人機組訓表格</a>
-		<a href={% url 'zuxun_table_create' %} class="btn btn-primary">製作表格</a>
+		<a href={% url 'zuxun_table_list' %} class="btn btn-primary">人機組訓表格</a>
+		<a href={% url 'zuxun_table_create' %} class="btn btn-primary active">製作表格</a>
 		<a href={% url 'zuxun_session_create' %} class="btn btn-primary">項目編輯</a>
 	</div>
 </nav>
@@ -24,11 +24,16 @@
 </form>
 
 
+<style type="text/css">
+    .ui-datepicker
+    {
+        z-index: 1003 !important; /* must be > than popup editor (1002) */
+    }
+</style>
 
 <script type="text/javascript">
 
 $('.date').datepicker({
-
   monthNames: ['一月','二月','三月','四月','五月','六月','七月','八月','九月','十月','十一月','十二月'],
   dateFormat: 'yy/mm/dd',
   });

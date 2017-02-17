@@ -4,7 +4,7 @@ from userprofile.models import UserProfile
 from django.contrib.auth import get_user_model, login, logout
 from .forms import UserLoginForm
 from django.core.urlresolvers import reverse
-from django.contrib.auth.decorators import login_required 
+from django.contrib.auth.decorators import login_required
 import datetime
 
 User = get_user_model()
@@ -37,6 +37,7 @@ def index(request):
 
 
 def user_login(request, *args, **kwargs):
+
 	form = UserLoginForm()
 
 	if request.method == 'POST':
