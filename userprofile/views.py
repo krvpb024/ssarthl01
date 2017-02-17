@@ -4,12 +4,14 @@ from .forms import CreateColleagueForm, EditNumberFormSet, CreateColleagueFormSe
 from tablemoney.forms import MonthCreateForm
 from django.core.urlresolvers import reverse
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required 
 
 
 # from .forms import PayeeForm
 
 # Create your views here.
 
+@login_required
 def profile_list(request):
 	profiles = UserProfile.objects.all()
 	members = UserProfile.members.all()
@@ -24,7 +26,7 @@ def profile_list(request):
 
 	return render(request, 'profile_list.html', context)
 
-
+@login_required
 def profile_delete_list(request):
 	profiles = UserProfile.objects.all()
 	members = UserProfile.members.all()
@@ -33,7 +35,7 @@ def profile_delete_list(request):
 	if request.method == 'GET':
 		delete_pk = request.GET.get('pk')
 		delete_colleagues = request.GET.get('delete')
-		
+
 		if delete_colleagues:
 			UserProfile.objects.get(pk=delete_pk).delete()
 			messages.add_message(request, messages.INFO, '已刪除人員')
@@ -48,6 +50,7 @@ def profile_delete_list(request):
 
 	return render(request, 'profile_delete_list.html', context)
 
+@login_required
 def create_colleague(request):
 	form = CreateColleagueForm()
 
@@ -58,8 +61,15 @@ def create_colleague(request):
 			messages.add_message(request, messages.INFO, '已新增人員')
 			return HttpResponseRedirect('profile_list')
 
-	last_members = UserProfile.members.all().order_by("-number")[0]
-	last_substitutes = UserProfile.substitutes.all().order_by("-number")[0]
+	try:
+		last_members = UserProfile.members.all().order_by("-number")[0]
+	except:
+		last_members = None
+
+	try:
+		last_substitutes = UserProfile.substitutes.all().order_by("-number")[0]
+	except:
+		last_substitutes = None
 
 	context = {
 	'form':form,
@@ -68,6 +78,7 @@ def create_colleague(request):
 	}
 	return render(request, 'create_colleague.html', context)
 
+@login_required
 def edit_profile(request):
 	profiles = UserProfile.objects.all()
 	formset = CreateColleagueFormSet(queryset=profiles)

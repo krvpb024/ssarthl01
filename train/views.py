@@ -4,9 +4,11 @@ from django.core.urlresolvers import reverse
 from .models import ZhuDiTable, ZuXunTable, ZhuDi, ZuXun
 from .forms import ZhuDiTableForm, ZuXunTableForm, ZhuDiSessionForm, ZuXunSessionForm
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
+@login_required
 def zhudi_table_detail(request, pk):
 	zhudi = get_object_or_404(ZhuDiTable, pk=pk)
 
@@ -16,9 +18,10 @@ def zhudi_table_detail(request, pk):
 	}
 	return render(request, 'zhudi_table_detail.html', context)
 
+@login_required
 def zhudi_table_list(request):
 	zhudis = ZhuDiTable.objects.all()
-	
+
 
 	context = {
 	'zhudis': zhudis,
@@ -26,6 +29,7 @@ def zhudi_table_list(request):
 	}
 	return render(request, 'zhudi_table_list.html', context)
 
+@login_required
 def zhudi_session_create(request):
 	form = ZhuDiSessionForm()
 	zhudi_sessions = ZhuDi.objects.all()
@@ -46,6 +50,7 @@ def zhudi_session_create(request):
 
 	return render(request, 'zhudi_session_create.html', context)
 
+@login_required
 def zhudi_session_delete(request, pk):
 	zhudi_session = get_object_or_404(ZhuDi, pk=pk)
 	if zhudi_session:
@@ -60,7 +65,7 @@ def zhudi_session_delete(request, pk):
 
 	return render(request, 'zhudi_session_create.html', context)
 
-
+@login_required
 def zhudi_table_create(request):
 	form = ZhuDiTableForm()
 
@@ -80,7 +85,7 @@ def zhudi_table_create(request):
 			files = request.FILES.getlist('img')
 			fileform.img = files[0]
 			fileform.img2 = files[1]
-			
+
 
 			other_files = request.FILES.getlist('img3')
 			for other_file in other_files:
@@ -93,6 +98,22 @@ def zhudi_table_create(request):
 
 	return render(request, 'zhudi_table_create.html', {'form': form})
 
+@login_required
+def zhudi_table_delete(request, pk):
+	zhudi = get_object_or_404(ZhuDiTable, pk=pk)
+
+	if zhudi:
+		zhudi.delete()
+		messages.add_message(request, messages.INFO, '表格刪除完成')
+		return HttpResponseRedirect(reverse(zhudi_table_list))
+
+	context = {
+	'zhudi': zhudi,
+
+	}
+	return render(request, 'zhudi_table_detail.html', context)
+
+@login_required
 def zuxun_table_detail(request, pk):
 	zuxun = get_object_or_404(ZuXunTable, pk=pk)
 
@@ -102,9 +123,10 @@ def zuxun_table_detail(request, pk):
 	}
 	return render(request, 'zuxun_table_detail.html', context)
 
+@login_required
 def zuxun_table_list(request):
 	zuxuns = ZuXunTable.objects.all()
-	
+
 
 	context = {
 	'zuxuns': zuxuns,
@@ -112,13 +134,14 @@ def zuxun_table_list(request):
 	}
 	return render(request, 'zuxun_table_list.html', context)
 
+@login_required
 def zuxun_session_create(request):
 	form = ZuXunSessionForm()
 	zuxun_sessions = ZuXun.objects.all()
 
 	if request.method == 'POST':
 		form = ZuXunSessionForm(request.POST)
-		
+
 
 		if form.is_valid():
 			new_session = form.save(commit=False)
@@ -134,6 +157,7 @@ def zuxun_session_create(request):
 
 	return render(request, 'zuxun_session_create.html', context)
 
+@login_required
 def zuxun_session_delete(request, pk):
 	zuxun_session = get_object_or_404(ZuXun, pk=pk)
 	if zuxun_session:
@@ -149,7 +173,7 @@ def zuxun_session_delete(request, pk):
 	return render(request, 'zuxun_session_create.html', context)
 
 
-
+@login_required
 def zuxun_table_create(request):
 	form = ZuXunTableForm()
 
@@ -176,7 +200,7 @@ def zuxun_table_create(request):
 
 			fileform.date = form_date
 			fileform = form.save(commit=False)
-			
+
 			files = request.FILES.getlist('img')
 			fileform.img = files[0]
 			fileform.img2 = files[1]
@@ -192,4 +216,17 @@ def zuxun_table_create(request):
 
 	return render(request, 'zuxun_table_create.html', {'form': form})
 
-	
+@login_required
+def zuxun_table_delete(request, pk):
+	zuxun = get_object_or_404(ZuXunTable, pk=pk)
+
+	if zuxun:
+		zuxun.delete()
+		messages.add_message(request, messages.INFO, '表格刪除完成')
+		return HttpResponseRedirect(reverse(zuxun_table_list))
+
+	context = {
+	'zuxun': zuxun,
+
+	}
+	return render(request, 'zuxun_table_detail.html', context)

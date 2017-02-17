@@ -11,7 +11,7 @@
 </nav>
 <p>
 	<div class="list-group">
-	
+
 	<h1>駐地常訓成果表格</h1>
 	<p>
 
@@ -19,10 +19,11 @@
 	{% for zhudi in zhudis %}
 		<a href={{ zhudi.get_absolute_url }} class="list-group-item list-group-item-action">
 		{{ zhudi.date }} {{ zhudi.session }}
-		</a>	
+		</a>
+	{% empty %}
+		<p>目前沒有駐地常訓表格</p>
 	{% endfor %}
 </div>
 
 
 {% endblock %}
-

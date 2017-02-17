@@ -14,7 +14,7 @@
 <p>
 
 <div class="list-group">
-	
+
 	<h1>人機組訓成果表格</h1>
 	<p>
 
@@ -22,12 +22,13 @@
 	{% for zuxun in zuxuns %}
 		<a href={{ zuxun.get_absolute_url }} class="list-group-item list-group-item-action">
 		{{ zuxun.date }} {{ zuxun.session }}
-		
-		 </a>	
+
+		 </a>
+	{% empty %}
+		 <p>目前沒有人機組訓表格</p>
 	{% endfor %}
 </div>
 
 
 
 {% endblock %}
-

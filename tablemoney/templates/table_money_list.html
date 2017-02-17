@@ -7,7 +7,7 @@
 
 <p>
 <div class="list-group">
-	
+
 	<h1>餐費表格</h1>
 	<p>
 
@@ -20,7 +20,9 @@
 		{% if month.current_money == month.month_total %}
 			<i class="fa fa-check-circle" aria-hidden="true"></i>
 		{% endif %}
-		 </a>	
+		 </a>
+	{% empty %}
+ 		<p>目前沒有餐費表格</p>
 	{% endfor %}
 </div>
 

@@ -25,7 +25,7 @@ class CreateColleagueForm(forms.ModelForm):
         'number': '編號',
         'mobile_phone': '行動電話',
         'home_phone':'住宅電話',
-        'emergency_call':'緊急聯絡人',
+        'emergency_call':'緊急聯絡人電話',
         'eat':'是否搭伙',
         }
 	def __init__(self, *args, **kwargs):

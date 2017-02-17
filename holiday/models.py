@@ -35,13 +35,17 @@ class HolidayMonth(models.Model):
 	def get_absolute_url(self):
 		return reverse ('holiday_detail', kwargs={'pk':self.pk})
 
-	# def get_name(self):
-	# 	names = UserProfile.objects.all()
-	# 	month = HolidayMonth.objects.get(month=self.month, year=self.year)
-	# 	year = month.year
-	# 	for name in names:
-	# 		holiday, create = Holiday.objects.get_or_create(name=name, month=month, year=year)
-	# 		holiday.save()
+	def get_name(self):
+		names = UserProfile.objects.all()
+		month = HolidayMonth.objects.get(month=self.month, year=self.year)
+		year = month.year
+		for name in names:
+			holiday, create = Holiday.objects.get_or_create(name=name, month=month, year=year)
+			if holiday.name.rank == '隊員':
+				holiday.holiday_count = 50
+			else:
+				holiday.holiday_count = self.holiday_count
+			holiday.save()
 
 	def remove(self):
 		return '%s/?delete=True' %(self.pk)

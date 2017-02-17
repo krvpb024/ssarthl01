@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
-from .views import index
+from .views import index, user_login, user_logout
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -23,11 +23,12 @@ from django.conf.urls.static import static
 
 urlpatterns = [
 	url(r'^$', index, name='index'),
+    url(r'^login/$', user_login, name='user_login'),
+    url(r'^logout/$', user_logout, name='user_logout'),
     url(r'^admin/', admin.site.urls),
     url(r'^tablemoney/', include('tablemoney.urls')),
     url(r'^userprofile/', include('userprofile.urls')),
     url(r'^holiday/', include('holiday.urls')),
     url(r'^train/', include('train.urls')),
-    
-]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
+]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -6,12 +6,12 @@
 	<div class="btn-group">
 		<a href={% url 'holiday_list' %} class="btn btn-primary active">輪休表</a>
 		<a href={% url 'holiday_create' %} class="btn btn-primary">製作表格</a>
-		
+
 	</div>
 </nav>
 <p>
 	<div class="list-group">
-		
+
 		<h1>輪休表</h1>
 		<p>
 
@@ -21,6 +21,8 @@
 				{{ holiday_month.year }}年
 				{{ holiday_month.month }}月
 			</a>
+		{% empty %}
+			<p>目前沒有輪休表格</p>
 		{% endfor %}
 	</div>
 

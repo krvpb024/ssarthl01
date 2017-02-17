@@ -9,9 +9,10 @@ import calendar
 import locale
 from itertools import product
 from .forms import HolidayMonthCreateForm, HolidayEditFormSet
+from django.contrib.auth.decorators import login_required 
 
 # Create your views here.
-
+@login_required
 def holiday_list(request):
 	holiday_months = HolidayMonth.objects.all()
 
@@ -21,30 +22,36 @@ def holiday_list(request):
 
 	return render(request,'holiday_list.html' , context)
 
+@login_required
 def holiday_detail(request, pk):
 	holiday_months = get_object_or_404(HolidayMonth, pk=pk)
 	holidays = Holiday.objects.filter(month=holiday_months)
-	locale.setlocale(locale.LC_ALL, 'zh_CN')
-	
+
+
 
 	# 顯示星期
 	weekday_list = []
 	date = datetime.datetime(int(holiday_months.year)+1911, int(holiday_months.month), 1)
-	weekday_list.append(date.strftime('%a'))
+	weekday_list.append(date.strftime('%w'))
 	numdays = int(calendar.monthrange(int(holiday_months.year)+1911, int(holiday_months.month))[1])-1
-	for i in range(numdays): 
+	for i in range(numdays):
 		date += datetime.timedelta(days=1)
-		weekday_list.append(date.strftime('%a'))
+		weekday_list.append(date.strftime('%w'))
+
+	dict = {"1":"一","2":"二","3":"三","4":"四","5":"五","6":"六","0":"日"}
+	weekday_list2 = []
+	for wd in weekday_list:
+		weekday_list2.append(dict[wd])
 
 
 	# 顯示日期
 	date_list = []
 	date = datetime.datetime(int(holiday_months.year)+1911, int(holiday_months.month), 1)
-	date_list.append(date.strftime('%-d'))
+	date_list.append(date.strftime('%d'))
 	numdays = int(calendar.monthrange(int(holiday_months.year)+1911, int(holiday_months.month))[1])-1
-	for i in range(numdays): 
+	for i in range(numdays):
 		date += datetime.timedelta(days=1)
-		date_list.append(date.strftime('%-d'))
+		date_list.append(date.strftime('%d'))
 
 	# 顯示日期+星期
 	date_weekday_list = zip(date_list, weekday_list)
@@ -62,7 +69,7 @@ def holiday_detail(request, pk):
 
 	for f in holiday_list:
 		for date in foreignkkey_date_list:
-		
+
 			if date in f:
 				d_list.append('O')
 			else:
@@ -100,24 +107,24 @@ def holiday_detail(request, pk):
 			else:
 				messages.add_message(request, messages.INFO, '本月份餐費表格已重新製作')
 				return HttpResponseRedirect(tablemoney_month.get_absolute_url())
-			
+
 	context = {
 		'holiday_months':holiday_months,
 		'holidays':holidays,
 		'date_list':date_list,
 		'weekday_list':weekday_list,
+		'weekday_list2':weekday_list2,
 		'date_weekday_list':date_weekday_list,
 		'final_holiday_list':final_holiday_list,
 		'final_holiday':final_holiday,
-		
-		
+
 	}
 
 	return render(request,'holiday_detail.html' , context)
 
 
 
-
+@login_required
 def holiday_create(request):
 	form = HolidayMonthCreateForm()
 
@@ -137,32 +144,36 @@ def holiday_create(request):
 
 	return render(request, 'holiday_month_create.html', {'form': form})
 
-
+@login_required
 def edit_holiday(request, month_pk):
 	holiday_months = get_object_or_404(HolidayMonth, pk=month_pk)
 	name = holiday_months.holiday_set.all()
 	holidays = Holiday.objects.filter(month=holiday_months)
-	locale.setlocale(locale.LC_ALL, 'zh_CN')
 	formset = HolidayEditFormSet(queryset=name)
 
 
 	# 顯示星期
 	weekday_list = []
 	date = datetime.datetime(int(holiday_months.year)+1911, int(holiday_months.month), 1)
-	weekday_list.append(date.strftime('%a'))
+	weekday_list.append(date.strftime('%w'))
 	numdays = int(calendar.monthrange(int(holiday_months.year)+1911, int(holiday_months.month))[1])-1
-	for i in range(numdays): 
+	for i in range(numdays):
 		date += datetime.timedelta(days=1)
-		weekday_list.append(date.strftime('%a'))
+		weekday_list.append(date.strftime('%w'))
 
 	# 顯示日期
 	date_list = []
 	date = datetime.datetime(int(holiday_months.year)+1911, int(holiday_months.month), 1)
-	date_list.append(date.strftime('%-d'))
+	date_list.append(date.strftime('%d'))
 	numdays = int(calendar.monthrange(int(holiday_months.year)+1911, int(holiday_months.month))[1])-1
-	for i in range(numdays): 
+	for i in range(numdays):
 		date += datetime.timedelta(days=1)
-		date_list.append(date.strftime('%-d'))
+		date_list.append(date.strftime('%d'))
+
+	dict = {"1":"一","2":"二","3":"三","4":"四","5":"五","6":"六","0":"日"}
+	weekday_list2 = []
+	for wd in weekday_list:
+		weekday_list2.append(dict[wd])
 
 	# 顯示日期+星期
 	date_weekday_list = zip(date_list, weekday_list)
@@ -180,7 +191,7 @@ def edit_holiday(request, month_pk):
 
 	for f in holiday_list:
 		for date in foreignkkey_date_list:
-		
+
 			if date in f:
 				d_list.append('O')
 			else:
@@ -203,7 +214,10 @@ def edit_holiday(request, month_pk):
 			for form in formset:
 				edit_holiday = form.save()
 				edit_holiday.work_day_count = numdays+1 - form.cleaned_data['date'].count()
+				print(numdays)
+				print(form.cleaned_data['date'].count())
 				edit_holiday = form.save()
+				holiday_months.get_name()
 			messages.add_message(request, messages.INFO, '輪休表編輯完成')
 			return HttpResponseRedirect('/holiday/' + str(holiday_months.pk))
 
@@ -213,6 +227,7 @@ def edit_holiday(request, month_pk):
 	'name': name,
 	'date_list':date_list,
 	'weekday_list':weekday_list,
+	'weekday_list2':weekday_list2,
 	'date_weekday_list':date_weekday_list,
 	'final_holiday_list':final_holiday_list,
 	'final_holiday':final_holiday,

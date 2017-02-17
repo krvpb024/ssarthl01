@@ -4,8 +4,10 @@ from .models import TableMoney, Month
 from .forms import MonthCreateForm, WorkDayFormSet, TableMoneyPayFormSet
 from django.core.urlresolvers import reverse
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required 
 # Create your views here.
 
+@login_required
 def table_money_list(request):
 	months = Month.objects.all()
 
@@ -14,18 +16,19 @@ def table_money_list(request):
 		if creat_month:
 			messages.add_message(request, messages.INFO, 'ss')
 			return HttpResponseRedirect(reverse("holiday_list"))
-	
+
 	context = {
 		'months':months,
 	}
 	return render(request, 'table_money_list.html', context)
 
+@login_required
 def table_money_detail(request, pk):
 	from holiday.models import HolidayMonth
 	months = get_object_or_404(Month, pk=pk)
 	table_moneys = months.tablemoney_set.all()
 	holiday = get_object_or_404(HolidayMonth, month=months.month, year=months.year)
-	
+
 
 	# if request.method == 'GET':
 	# 	delete_month = request.GET.get('delete')
@@ -39,15 +42,16 @@ def table_money_detail(request, pk):
 		'holiday':holiday,
 	}
 
-	
+
 
 	return render(request, 'table_money_detail.html', context)
 
+@login_required
 def delete(request):
 	c = TableMoney.objects.all()
 	print(c)
 	c.delete()
-	
+
 
 	return HttpResponseRedirect('/tablemoney/')
 
@@ -74,7 +78,7 @@ def delete(request):
 # 	return render(request, 'table_money_create.html', {'form': form})
 
 
-
+@login_required
 def table_money_pay(request, pk):
 	months = get_object_or_404(Month, pk=pk)
 	table_moneys = months.tablemoney_set.all()
@@ -82,7 +86,7 @@ def table_money_pay(request, pk):
 
 	if request.method =='POST':
 		formset = TableMoneyPayFormSet(request.POST)
-		
+
 		if formset.is_valid():
 			formset.save(commit=False)
 			for form in formset:
