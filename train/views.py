@@ -7,14 +7,17 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
 # Create your views here.
-
 @login_required
 def zhudi_table_detail(request, pk):
 	zhudi = get_object_or_404(ZhuDiTable, pk=pk)
+	date = zhudi.date.split('.')[1] + zhudi.date.split('.')[2]
+	session = zhudi.session
+	title = str(date) + ' ' + str(session)
+
 
 	context = {
 	'zhudi': zhudi,
-
+	'title': title,
 	}
 	return render(request, 'zhudi_table_detail.html', context)
 
@@ -85,12 +88,7 @@ def zhudi_table_create(request):
 			files = request.FILES.getlist('img')
 			fileform.img = files[0]
 			fileform.img2 = files[1]
-
-
-			other_files = request.FILES.getlist('img3')
-			for other_file in other_files:
-				fileform.img3 = other_file
-				fileform.save()
+			fileform.save()
 
 
 		fileform.save()
@@ -206,10 +204,6 @@ def zuxun_table_create(request):
 			fileform.img2 = files[1]
 			fileform = form.save(commit=False)
 
-			other_files = request.FILES.getlist('img3')
-			for other_file in other_files:
-				fileform.img3 = other_file
-				fileform.save()
 
 		fileform.save()
 		return HttpResponseRedirect('/train/zuxun/' + str(fileform.pk))

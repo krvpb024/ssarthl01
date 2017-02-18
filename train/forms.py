@@ -13,14 +13,12 @@ class ZhuDiTableForm(forms.ModelForm):
 			'session',
 			'date',
 			'img',
-			'img3',
 		]
 
 		labels = {
 			'session': _('項目'),
 			'date': _('日期'),
 			'img': _('表格照片'),
-			'img3': _('其餘照片'),
 		}
 
 class ZuXunTableForm(forms.ModelForm):
@@ -53,7 +51,7 @@ class ZhuDiSessionForm(forms.ModelForm):
 		fields = [
 			'name'
 		]
-		
+
 		labels = {
 			'name': _('項目'),
 
@@ -68,7 +66,7 @@ class ZuXunSessionForm(forms.ModelForm):
 		fields = [
 			'name'
 		]
-		
+
 		labels = {
 			'name': _('項目'),
 

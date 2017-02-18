@@ -15,9 +15,9 @@
 
 <nav class="navbar">
 	<div class="btn-group">
-		<a href={% url 'holiday_list' %} class="btn btn-primary">輪休表</a>
+		<a href={% url 'holiday_detail' pk=holiday_months.pk %} class="btn btn-primary">回到表格</a>
 		<a href={% url 'holiday_create' %} class="btn btn-primary">製作表格</a>
-    <a href={% url 'holiday_detail' pk=holiday_months.pk %} class="btn btn-primary"> 回到表格</a>
+    <a href={% url 'edit_holiday' month_pk=holiday_months.pk %} class="btn btn-primary">編輯表格</a>
 		 <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-sm">刪除本月表格</button>
 	</div>
   <a href="{{ holiday_months.create_tablemoney_month }}" class="btn btn-primary">本月餐費表格</a>
@@ -36,16 +36,16 @@
               <h4 class="modal-title">確認刪除</h4>
             </div>
             <div class="modal-body">
-            
+
               <p>是否刪除 {{ holiday_months.year }}年{{ holiday_months.month }}月份輪休預定表</p>
-              
+
             </div>
             <div class="modal-footer">
-              
-              
+
+
               <a href={{holiday_months.remove}} class="btn btn-primary">是</a>
 
-              
+
               <button type="button" class="btn btn-secondary" data-dismiss="modal">否</button>
             </div>
           </div><!-- /.modal-content -->
@@ -68,13 +68,13 @@
   <thead class="table-active">
     <tr>
       <th></th>
-      <th></th>  
-      
+      <th></th>
+
       {% for date in date_list %}<th>{{ date }}</th>{% endfor %}
     </tr>
     <tr>
       <th>編號</th>
-      <th>姓名</th>      
+      <th>姓名</th>
       {% for weekday in weekday_list2 %}
 
       <th>
@@ -88,10 +88,10 @@
       {% endfor %}
     </tr>
   </thead>
-  
+
   <tbody>
   {% for form in formset %}
-  {% if form.instance.name.rank = "隊員" %}
+  {% if form.instance.name.rank == "隊員" %}
     <tr class="member">
     <th>{{ form.instance.name.number }}</th>
     <th>{{ form.instance.name }}{{ form.name |add_class:'hidden'}}</th>
@@ -127,13 +127,13 @@
     </tr>
 
     {% endif %}
-    {% endfor %} 
+    {% endfor %}
   </tbody>
 </table>
-            {% for form in formset %}    
+            {% for form in formset %}
                 {% for hidden in form.hidden_fields %}
                     {{ hidden }}
-                {% endfor %}    
+                {% endfor %}
             {% endfor %}
 
 
@@ -142,16 +142,16 @@
 
 
 <script type="text/javascript">
-  
+
 
     $(".substitute").change(function () {
         var x = $(this).find('input:checked').length;
         if (x > {{ holiday_months.holiday_count }}) {
           $(this).addClass("over");
-          
+
         } else {
           $(this).removeClass("over");
-          
+
         }
 
         if ($(".substitute").hasClass('over') ) {

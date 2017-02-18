@@ -1,7 +1,7 @@
 from django import forms
 from django.forms.models import modelformset_factory
 
-from .models import Month, TableMoney
+from .models import Month, TableMoney, ExtraTableMoney
 
 
 class MonthCreateForm(forms.ModelForm):
@@ -56,23 +56,30 @@ TableMoneyPayFormSet = modelformset_factory(TableMoney, form=TableMoneyPayForm, 
 
 
 
+class ExtraTableMoneyForm(forms.ModelForm):
 
+	class Meta:
+		model = ExtraTableMoney
 
+		fields = [
+		'name',
+		'extra_price',
+		]
 
+		labels = {
+		'name': '姓名',
+		'extra_price': '金額',
+		}
 
+class ExtraTableMoneyPayForm(forms.ModelForm):
 
+	class Meta:
+		model = ExtraTableMoney
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+		fields = [
+		'pay_off',
+		'payee',
+		'pay_date',
+		'note',
+		]
+ExtraTableMoneyPayFormSet = modelformset_factory(ExtraTableMoney, form=ExtraTableMoneyPayForm, extra=0)

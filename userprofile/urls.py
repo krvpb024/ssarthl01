@@ -9,4 +9,3 @@ urlpatterns = [
 	url(r'^create_colleague$', views.create_colleague, name='create_colleague'),
 	url(r'^edit_profile$', views.edit_profile, name='edit_profile'),
 ]
-

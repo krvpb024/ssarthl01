@@ -10,12 +10,10 @@
 <nav class="navbar">
 <div class="btn-group">
 <a href={% url 'table_money_detail' pk=months.pk %} class="btn btn-primary">回到表格</a>
-
-
 </div>
 <div class="btn-group">
-<a href={% url 'table_money_pay' pk=months.pk  %} class="btn btn-primary active">繳費</a>
-<a href={% url 'extra_table_money_pay' pk=months.pk  %} class="btn btn-primary">特殊繳費</a>
+<a href={% url 'table_money_pay' pk=months.pk  %} class="btn btn-primary">繳費</a>
+<a href={% url 'extra_table_money_pay' pk=months.pk  %} class="btn btn-primary active">特殊繳費</a>
 </div>
 </nav>
 
@@ -49,14 +47,15 @@
   <tbody>
     <tr>
 
-      <td>{{ form.instance.name.number }}</td>
+      <td>*</td>
       <td>{{ form.instance.name }}</td>
-      <td>{{ form.instance.totle_price }}</td>
+      <td>{{ form.instance.extra_price }}</td>
       <td><div class="btn-group" ><label class="btn btn-outline-primary">{{ form.pay_off }} 繳費</label></div></td>
       <td>{{ form.payee|add_class:'form-control' }}</td>
       <td>{{ form.pay_date|add_class:'form-control date' }}</td>
       <td>{{ form.note|add_class:'form-control' }}</td>
-
+      {% empty %}
+      <td>本月尚無特殊餐費</td>
     </tr>
   </tbody>
 

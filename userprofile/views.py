@@ -4,13 +4,12 @@ from .forms import CreateColleagueForm, EditNumberFormSet, CreateColleagueFormSe
 from tablemoney.forms import MonthCreateForm
 from django.core.urlresolvers import reverse
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required 
+from django.contrib.auth.decorators import login_required
 
 
 # from .forms import PayeeForm
 
 # Create your views here.
-
 @login_required
 def profile_list(request):
 	profiles = UserProfile.objects.all()

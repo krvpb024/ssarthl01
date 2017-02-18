@@ -3,7 +3,7 @@
 <style type="text/css">
 
 	@media print
-	{    
+	{
 	    .no-print, .no-print *
 	    {
 	        display: none !important;
@@ -34,7 +34,7 @@
 	}
 
 	table#bottom  {
-		
+
 		width: 720px;
 		border-bottom: 1px solid black;
 		border-left: 1px solid black;
@@ -57,23 +57,23 @@
 
 		font-size: 32px;
 		text-align:center;
-		
-		
+
+
 	}
 
 	div.title2 {
 		font-size: 20px;
 		text-align:center;
-		
-		
+
+
 	}
 
 	div.title3 {
 
 		font-size: 31px;
 		text-align:center;
-		
-		
+
+
 	}
 
 	#row2 {
@@ -95,32 +95,36 @@
 		width: 520;
 		height:390;
 	}
-</style> 
+</style>
       <form>
-         </span><input type="button" value="按我列印" class="no-print" /> 
+         </span><input type="button" value="按我列印" class="no-print" />
       </form>
       <form action={% url 'zhudi_table_delete' pk=zhudi.pk %}>
     <input type="submit" value="刪除表格" class="no-print" />
 </form>
+
+<div class="no-print">
+	{{ title }}
+</div>
 <script type="text/javascript">
 
 $('input[type=button]').click(function(){
      window.print();
-});	
+});
 
 </script>
 
 
 <div id="print">
 <table id='top'>
-	
+
 
     <tr>
     <th colspan="2" id='row1'><div class="title3 word">內 政 部 消 防 署 特 種 搜 救 隊 花 蓮 分 隊</div></th>
     </th>
 	<tr><th rowspan="2" id='row2'><div class="title2 word">組　 　　　合　 　　訓　　　 　練<br/>體 　 　技 　 　能 　 　訓  　　練</div></th></tr>
 	<tr><th><div class="title word">成　　果　　相　　片</div></th></tr>
-	
+
 
 </th>
     </tr>
@@ -135,8 +139,8 @@ $('input[type=button]').click(function(){
 	<tr><th colspan="2" class='bottom img'><img src='{{ zhudi.img2.url }}' class="imgs"/></th></tr>
 	<tr><th class='bottom row3 word'>項目</th><th class='bottom word'>{{ zhudi.session }}</th></tr>
 	<tr><th class='bottom row3 word'>日期</th><th class='bottom word'>{{ zhudi.date }}</th></tr>
-	
-	
+
+
 </table>
 
 

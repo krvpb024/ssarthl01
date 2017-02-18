@@ -11,7 +11,7 @@ User = get_user_model()
 
 # Create your views here.
 
-@login_required
+
 def index(request):
 	members = UserProfile.members.all().exclude(number=1)
 	substitutes = UserProfile.substitutes.all()

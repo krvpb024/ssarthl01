@@ -9,9 +9,10 @@ import calendar
 import locale
 from itertools import product
 from .forms import HolidayMonthCreateForm, HolidayEditFormSet
-from django.contrib.auth.decorators import login_required 
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
+
 @login_required
 def holiday_list(request):
 	holiday_months = HolidayMonth.objects.all()
@@ -123,7 +124,6 @@ def holiday_detail(request, pk):
 	return render(request,'holiday_detail.html' , context)
 
 
-
 @login_required
 def holiday_create(request):
 	form = HolidayMonthCreateForm()
@@ -214,8 +214,6 @@ def edit_holiday(request, month_pk):
 			for form in formset:
 				edit_holiday = form.save()
 				edit_holiday.work_day_count = numdays+1 - form.cleaned_data['date'].count()
-				print(numdays)
-				print(form.cleaned_data['date'].count())
 				edit_holiday = form.save()
 				holiday_months.get_name()
 			messages.add_message(request, messages.INFO, '輪休表編輯完成')

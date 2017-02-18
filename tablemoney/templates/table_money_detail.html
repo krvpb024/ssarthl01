@@ -5,9 +5,11 @@
 <nav class="navbar">
   <div class="btn-group">
     <a href={% url 'table_money_list' %} class="btn btn-primary">餐費表格</a>
-    
+
     <a href={{ holiday.get_absolute_url }} class="btn btn-primary">編輯上班天數</a>
     <a href={%  url 'table_money_pay' pk=months.pk  %} class="btn btn-primary">繳費</a>
+    <a href={%  url 'add_extra_table_money' pk=months.pk %} class="btn btn-primary">新增特殊餐費</a>
+    <a href={%  url 'delete_extra_table_money_list' pk=months.pk %} class="btn btn-primary">刪除特殊餐費</a>
 
   </div>
   <a href="{{ holiday.get_absolute_url }}" class="btn btn-primary">本月輪休表</a>
@@ -35,8 +37,9 @@
           <th>備註</th>
         </tr>
       </thead>
-          {% for table_money in table_moneys %}
+
       <tbody>
+        {% for table_money in table_moneys %}
         <tr>
 
           {% if table_money.pay_off == True %}
@@ -45,7 +48,7 @@
           <td>{{table_money.workday_count}}</td>
           <td>{{table_money.totle_price}}</td>
           <td>{{table_money.payee}} </td>
-          
+
 
           {% else %}
           <td>{{table_money.name.number}}</td>
@@ -59,8 +62,30 @@
           <td>{{table_money.pay_date}}</td>
           <td>{{table_money.note}}</td>
         </tr>
+        {% endfor %}
+        <tr>
+          {% for extra_table_money in extra_table_moneys %}
+          {% if extra_table_money.pay_off == True %}
+          <td>*</td>
+          <td>{{ extra_table_money.name }}</td>
+          <td> </td>
+          <td>{{ extra_table_money.extra_price }}</td>
+          <td>{{ extra_table_money.payee }}</td>
+
+        {% else %}
+        <td>*</td>
+        <td>{{ extra_table_money.name }}</td>
+        <td> </td>
+        <td>{{ extra_table_money.extra_price }}</td>
+        <td> </td>
+        {% endif %}
+        <td>{{extra_table_money.pay_date}}</td>
+        <td>{{extra_table_money.note}}</td>
+
+        </tr>
+        {% endfor %}
       </tbody>
-          {% endfor %}
+
     </table>
   </div>
 </div>

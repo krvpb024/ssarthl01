@@ -22,5 +22,8 @@ urlpatterns = [
 	url(r'(?P<pk>\d+)/$', views.table_money_detail, name='table_money_detail'),
 	# url(r'^month_create/$', views.month_create, name='month_create'),
     url(r'^(?P<pk>\d+)/table_money_pay/$', views.table_money_pay, name='table_money_pay'),
+    url(r'^(?P<pk>\d+)/extra_table_money_pay/$', views.extra_table_money_pay, name='extra_table_money_pay'),
     url(r'^delete/$', views.delete, name='delete'),
+    url(r'^(?P<pk>\d+)/add_extra_table_money$',views.add_extra_table_money , name='add_extra_table_money'),
+    url(r'^(?P<pk>\d+)/delete_extra_table_money_list$', views.delete_extra_table_money_list, name='delete_extra_table_money_list'),
 ]
