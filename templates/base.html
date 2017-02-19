@@ -38,7 +38,7 @@
             <a class="nav-item nav-link active" href={% url 'index' %}>SSART <span class="sr-only">(current)</span></a>
             {% if user.is_authenticated %}
             <a class="nav-item nav-link" href={% url 'profile_list' %}>人事</a>
-            <a class="nav-item nav-link" href={% url 'holiday_list' %}>輪休表</a>
+            <a class="nav-item nav-link" href={% url 'holiday_list_from_docx' %}>輪休表</a>
             <a class="nav-item nav-link" href={% url 'table_money_list' %}>餐費表格</a>
 
                 <li class="nav-item dropdown">

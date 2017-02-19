@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<nav class="navbar">
+	<div class="btn-group">
+		<a href={% url 'holiday_list_from_docx' %} class="btn btn-primary active">輪休表</a>
+		<a href={% url 'holiday_month_from_docx' %} class="btn btn-primary">製作表格</a>
+
+	</div>
+</nav>
+<p>
+	<div class="list-group">
+
+		<h1>輪休表</h1>
+		<p>
+
+
+		{% for holiday_month in holiday_months %}
+			<a href='{{ holiday_month.get_absolute_url }}' class="list-group-item list-group-item-action">
+				{{ holiday_month.year }}年
+				{{ holiday_month.month }}月
+			</a>
+		{% empty %}
+			<p>目前沒有輪休表格</p>
+		{% endfor %}
+	</div>
+
+
+{% endblock %}

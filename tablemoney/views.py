@@ -23,10 +23,10 @@ def table_money_list(request):
 
 @login_required
 def table_money_detail(request, pk):
-	from holiday.models import HolidayMonth
+	from holiday.models import HolidayMonth, HolidayMonthFromDocx
 	months = get_object_or_404(Month, pk=pk)
 	table_moneys = months.tablemoney_set.all()
-	holiday = get_object_or_404(HolidayMonth, month=months.month, year=months.year)
+	holiday = get_object_or_404(HolidayMonthFromDocx, month=months.month, year=months.year)
 	extra_table_moneys = ExtraTableMoney.objects.filter(identify=str(months.year)+str(months.month))
 
 

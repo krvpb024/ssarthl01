@@ -14,6 +14,7 @@
         <tr>
           <th>身分</th>
           <th>姓名</th>
+          <th>金額</th>
         </tr>
       </thead>
           {% for extra_table_money in extra_table_moneys %}
@@ -21,6 +22,7 @@
         <tr>
 		<td>{{ extra_table_money.name.rank }}</td>
 		<td>{{ extra_table_money.name }}</td>
+    <td>{{ extra_table_money.extra_price }}</td>
 
 		<td>
 

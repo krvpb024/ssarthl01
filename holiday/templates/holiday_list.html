@@ -17,7 +17,7 @@
 
 
 		{% for holiday_month in holiday_months %}
-			<a href={{ holiday_month.get_absolute_url }} class="list-group-item list-group-item-action">
+			<a href='{{ holiday_month.get_absolute_url }}' class="list-group-item list-group-item-action">
 				{{ holiday_month.year }}年
 				{{ holiday_month.month }}月
 			</a>

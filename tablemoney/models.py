@@ -106,7 +106,7 @@ class ExtraTableMoney(models.Model):
 
 	def __str__(self):
 		return str(self.name)
-		
+
 	def remove(self):
 		return '?pk=%s&delete=True' %(self.pk)
 
@@ -161,11 +161,11 @@ class TableMoney(models.Model):
 
 
 def get_price_pre_save_receiver(sender, instance, *args, **kwargs):
-	from holiday.models import Holiday
+	from holiday.models import Holiday, HolidayFromDocx
 	instance.identify = str(instance.year)+str(instance.month)
 
 	try:
-		holiday = get_object_or_404(Holiday, name=instance.name, year=instance.year, identify=instance.identify)
+		holiday = get_object_or_404(HolidayFromDocx, name=instance.name, year=instance.year, identify=instance.identify)
 
 		if instance.name.rank == '隊員':
 			if holiday.work_day_count == "":

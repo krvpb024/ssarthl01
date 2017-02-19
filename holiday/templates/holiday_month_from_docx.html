@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+{% block content %}
+<nav class="navbar">
+	<div class="btn-group">
+		<a href={% url 'holiday_list_from_docx' %} class="btn btn-primary">輪休表</a>
+		<a href={% url 'holiday_month_from_docx' %} class="btn btn-primary active">製作表格</a>
+
+	</div>
+</nav>
+<p>
+<h1>製作輪休表</h1>
+
+<p>
+
+
+<form action="" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <p>{{form.year.label_tag}}{{ form.year|add_class:'form-control' }}</p>
+    <p>{{form.month.label_tag}}{{ form.month|add_class:'form-control' }}</p>
+    <p>{{form.holiday_file.label_tag}}{{ form.holiday_file|add_class:'form-control' }}</p>
+<input type="submit" class="btn btn-primary" id="send" value="送出">
+</form>
+
+<script type="text/javascript">
+
+$('form').submit(function() {
+    var after = $.proxy(function () {
+        $(this).find("input[type='submit']").prop('disabled',true).val('資料分析中...');
+    },this);
+    window.setTimeout(after,50);
+});
+
+</script>
+
+{% endblock %}

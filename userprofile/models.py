@@ -43,29 +43,34 @@ class UserProfile(models.Model):
 	def remove(self):
 		return '?pk=%s&delete=True' %(self.pk)
 
-def create_payee_post_save_receiver(sender, instance, *args, **kwargs):
-	payees = UserProfile.substitutes.all()
-	for payee in payees:
-		payee, create = Payee.objects.get_or_create(name=payee)
+def create_payee_post_save_receiver(sender, instance, created, *args, **kwargs):
+
+	if created:
+		if instance.rank == "替代役":
+			new_payee, create = Payee.objects.get_or_create(name=instance.name, identity=instance.pk)
+	try:
+		payee = Payee.objects.get(identity=instance.pk)
+		payee.name = instance.name
+		payee.save()
+	except:
+		pass
+
+post_save.connect(create_payee_post_save_receiver, sender=UserProfile)
 
 def delete_payee_post_delete_receiver(sender, instance, *args, **kwargs):
 
-	payee = Payee.objects.all()
 
-	for p in payee:
 		try:
-			p=UserProfile.objects.get(name=p)
+			payee = Payee.objects.get(identity=instance.pk)
+			payee.delete()
 		except:
-			pk = p.pk
-			Payee.objects.filter(pk=pk).delete()
-	
+			pass
 
-
-post_save.connect(create_payee_post_save_receiver, sender=UserProfile)
 post_delete.connect(delete_payee_post_delete_receiver, sender=UserProfile)
 
 class Payee(models.Model):
 	name = models.CharField(max_length=20)
+	identity = models.IntegerField()
 
 	def __str__(self):
 		return self.name

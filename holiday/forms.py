@@ -1,9 +1,27 @@
 from django import forms
 
 from django.forms.models import modelformset_factory
-from .models import HolidayMonth, Holiday, Date
+from .models import HolidayMonth, Holiday, Date, HolidayMonthFromDocx
 
 from django.utils.translation import ugettext_lazy as _
+
+
+class HolidayMonthFromDocxForm(forms.ModelForm):
+
+	class Meta:
+		model = HolidayMonthFromDocx
+
+		fields = [
+		'year',
+		'month',
+		'holiday_file',
+		]
+
+		labels = {
+		'year': '年份',
+		'month': '月份',
+		'holiday_file': '輪休表',
+		}
 
 
 class HolidayMonthCreateForm(forms.ModelForm):
@@ -27,6 +45,7 @@ class HolidayMonthCreateForm(forms.ModelForm):
 		'month': {'required': _("請填入月份"),},
 		'holiday_count': {'required': _("請填入本月假日天數"),},
 		}
+
 
 
 class HolidayEditForm(forms.ModelForm):
