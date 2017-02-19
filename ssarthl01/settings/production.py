@@ -136,17 +136,17 @@ STATIC_URL = '/static/'
 
 # 可以放公用的static，例如custom css 用 collect static就會被複製進STATIC_ROOT
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static")
+    os.path.join(BASE_DIR, "custom_static")
     #'/var/www/static/',
 ]
 # 真的使用的檔案
-STATIC_ROOT = os.path.join(BASE_DIR, "live-static-files", "static-root")
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
 MEDIA_URL = '/media/'
 
-MEDIA_ROOT = os.path.join(BASE_DIR, "live-static-files", "media-root")
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 
 LOGIN_URL='/login/'
