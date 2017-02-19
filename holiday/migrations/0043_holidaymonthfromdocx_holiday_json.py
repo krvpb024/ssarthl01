@@ -15,7 +15,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='holidaymonthfromdocx',
             name='holiday_json',
-            field=models.CharField(default=1, max_length=999999999),
+            field=models.CharField(default=1, max_length=9999),
             preserve_default=False,
         ),
     ]
