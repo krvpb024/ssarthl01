@@ -6,6 +6,7 @@ from .forms import UserLoginForm
 from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
 import datetime
+from ssarthl01.settings import BASE_DIR, MEDIA_ROOT
 
 User = get_user_model()
 
@@ -13,6 +14,7 @@ User = get_user_model()
 
 
 def index(request):
+	print(BASE_DIR)
 	members = UserProfile.members.all().exclude(number=1)
 	substitutes = UserProfile.substitutes.all()
 	try:
