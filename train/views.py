@@ -114,10 +114,13 @@ def zhudi_table_delete(request, pk):
 
 def zuxun_table_detail(request, pk):
 	zuxun = get_object_or_404(ZuXunTable, pk=pk)
+	date = zuxun.date.split('.')[1] + zuxun.date.split('.')[2]
+	session = zuxun.session
+	title = str(date) + ' ' + str(session)
 
 	context = {
 	'zuxun': zuxun,
-
+	'title': title,
 	}
 	return render(request, 'zuxun_table_detail.html', context)
 
