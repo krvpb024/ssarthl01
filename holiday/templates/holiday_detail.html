@@ -24,16 +24,16 @@
               <h4 class="modal-title">確認刪除</h4>
             </div>
             <div class="modal-body">
-            
+
               <p>是否刪除 {{ holiday_months.year }}年{{ holiday_months.month }}月份輪休預定表</p>
               本月餐費表格也會一併刪除
             </div>
             <div class="modal-footer">
-              
-              
+
+
               <a href={{holiday_months.remove}} class="btn btn-primary">是</a>
 
-              
+
               <button type="button" class="btn btn-secondary" data-dismiss="modal">否</button>
             </div>
           </div><!-- /.modal-content -->
@@ -54,13 +54,13 @@
   <thead class="table-active">
     <tr>
       <th></th>
-      <th></th>  
-      
+      <th></th>
+
       {% for date in date_list %}<th>{{ date }}</th>{% endfor %}
     </tr>
     <tr>
       <th>編號</th>
-      <th>姓名</th>      
+      <th>姓名</th>
       {% for weekday in weekday_list2 %}
 
       <th>
@@ -74,7 +74,7 @@
       {% endfor %}
     </tr>
   </thead>
-  
+
   <tbody>
     {% for holiday in final_holiday %}
     <tr>
@@ -85,7 +85,7 @@
       <td>{{ dates }}</td>
       {% endif %}
       {% endfor %}
-      
+
     </tr>
     {% endfor %}
   </tbody>
@@ -95,4 +95,3 @@
 
 
 {% endblock %}
-

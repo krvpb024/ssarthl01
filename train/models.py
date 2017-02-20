@@ -19,7 +19,7 @@ class ZuXun(models.Model):
 def upload_location(instance, filename):
 	date = instance.date.split('.')[1] + instance.date.split('.')[2]
 
-	return "{}/{}".format('駐地常訓', filename)
+	return "{}/{}".format('zhudi', filename)
 
 class ZhuDiTable(models.Model):
 	session = models.ForeignKey(ZhuDi)
@@ -47,13 +47,18 @@ def delete_zhudi_post_save_receiver(sender, instance, *args, **kwargs):
 post_save.connect(delete_zhudi_post_save_receiver, sender=ZhuDiTable)
 
 def delete_zhudi_file_post_delete_receiver(sender, instance, *args, **kwargs):
-	print('deleting')
 	if instance.img:
-		if os.path.isfile(instance.img.path):
-			os.remove(instance.img.path)
+		try:
+			if os.path.isfile(instance.img.path):
+				os.remove(instance.img.path)
+		except:
+			pass
 	if instance.img2:
-		if os.path.isfile(instance.img2.path):
-			os.remove(instance.img2.path)
+		try:
+			if os.path.isfile(instance.img2.path):
+				os.remove(instance.img2.path)
+		except:
+			pass
 
 post_delete.connect(delete_zhudi_file_post_delete_receiver, sender=ZhuDiTable)
 
@@ -61,7 +66,7 @@ def upload_location_zuxun(instance, filename):
 
 	date = instance.date.split('.')[1] + instance.date.split('.')[2]
 
-	return "{}/{}".format('人機組訓', filename)
+	return "{}/{}".format('zuxun', filename)
 
 
 class ZuXunTable(models.Model):
@@ -89,7 +94,6 @@ def delete_zuxun_post_save_receiver(sender, instance, *args, **kwargs):
 post_save.connect(delete_zuxun_post_save_receiver, sender=ZuXunTable)
 
 def delete_zuxun_file_post_delete_receiver(sender, instance, *args, **kwargs):
-	print('deleting')
 	if instance.img:
 		if os.path.isfile(instance.img.path):
 			os.remove(instance.img.path)

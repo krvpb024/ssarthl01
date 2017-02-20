@@ -28,7 +28,7 @@ MONTH_CHOICES = (
 
 def upload_location(instance, filename):
 	ext = filename.split('.')[-1]
-	return "{}/{}.{}".format('輪休表',str(instance.year)+str(instance.month), ext)
+	return "{}/{}.{}".format('holiday',str(instance.year)+str(instance.month), ext)
 
 class HolidayMonthFromDocx(models.Model):
 	year = models.PositiveIntegerField()
@@ -37,6 +37,9 @@ class HolidayMonthFromDocx(models.Model):
 
 	def __str__(self):
 		return self.month
+
+	class Meta:
+		ordering = ['-pk']
 
 	def get_absolute_url(self):
 		return reverse ('holiday_detail_from_docx', kwargs={'pk':self.pk})
@@ -49,7 +52,7 @@ class HolidayMonthFromDocx(models.Model):
 
 
 def get_holiday_post_save_receiver(sender, instance, created, *args, **kwargs):
-	document = Document(os.path.join(MEDIA_ROOT,'輪休表',str(instance.year)+str(instance.month) + '.docx'))
+	document = Document(os.path.join(MEDIA_ROOT,'holiday',str(instance.year)+str(instance.month) + '.docx'))
 	table = document.tables[0]
 	numdays = int(calendar.monthrange(int(instance.year)+1911, int(instance.month))[1])
 	# print(numdays)
@@ -103,15 +106,30 @@ def docx_create_table_money_post_save_receiver(sender, instance, *args, **kwargs
 	from tablemoney.models import Month
 	tablemoney_month, create = Month.objects.get_or_create(month=instance.month, year=instance.year)
 
+	month = HolidayMonthFromDocx.objects.all().order_by('pk')
+	table_number = month.count()
+	while table_number >5:
+		month.first().delete()
+		table_number = month.count()
 
 post_save.connect(docx_create_table_money_post_save_receiver, sender=HolidayMonthFromDocx)
 
 def docx_table_money_post_delete_receiver(sender, instance, *args, **kwargs):
 	from tablemoney.models import Month
-	month = Month.objects.get(month=instance.month, year=instance.year)
-	month.delete()
+	try:
+		month = Month.objects.get(month=instance.month, year=instance.year)
+		month.delete()
+	except:
+		pass
+	try:
+		if instance.holiday_file:
+			if os.path.isfile(instance.holiday_file.path):
+				os.remove(instance.holiday_file.path)
+	except:
+		pass
 
 pre_delete.connect(docx_table_money_post_delete_receiver, sender=HolidayMonthFromDocx)
+
 
 class HolidayMonth(models.Model):
 	year = models.PositiveIntegerField()

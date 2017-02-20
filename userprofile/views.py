@@ -5,6 +5,7 @@ from tablemoney.forms import MonthCreateForm
 from django.core.urlresolvers import reverse
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.conf import settings
 
 
 # from .forms import PayeeForm
@@ -15,6 +16,9 @@ def profile_list(request):
 	profiles = UserProfile.objects.all()
 	members = UserProfile.members.all()
 	substitutes = UserProfile.substitutes.all()
+
+
+	print (settings.BASE_DIR)
 
 	context = {
 	'profiles':profiles,

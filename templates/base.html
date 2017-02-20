@@ -1,4 +1,4 @@
-{% load static %}
+{% load static from staticfiles %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -8,20 +8,20 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="../../favicon.ico">
+
 
     <title>特搜花蓮駐地</title>
 
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.css' %}">
     <!-- font awesome -->
-    <link rel="stylesheet" href="/static/font-awesome/css/font-awesome.css">
+    <link rel="stylesheet" href="{% static 'font-awesome/css/font-awesome.css' %}">
 
 
     <!-- Custom styles for this template -->
-    <link rel="stylesheet" href="/static/jquery-ui/jquery-ui.min.css">
-    <script src="/static/jquery-3.1.1.min.js"></script>
-    <script src="/static/jquery-ui/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="{% static 'jquery-ui/jquery-ui.min.css' %}">
+    <script src="{% static 'jquery-3.1.1.min.js' %}"></script>
+    <script src="{% static 'jquery-ui/jquery-ui.min.js' %}"></script>
 
 
   </head>
@@ -171,7 +171,7 @@
     <script src="https://www.atlasestateagents.co.uk/javascript/tether.min.js"></script>
     <!-- Latest compiled and minified JavaScript -->
 <!--     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js" integrity="sha384-BLiI7JTZm+JWlgKa0M0kGRpJbF2J8q+qreVrKBC47e3K6BW78kGLrCkeRX6I9RoK" crossorigin="anonymous"></script>
- -->    <script src="/static/bootstrap/js/bootstrap.js""></script>
+-->    <script src="{% static 'bootstrap/js/bootstrap.js' %}"></script>
 
 
 
