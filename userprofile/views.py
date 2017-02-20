@@ -11,7 +11,7 @@ from django.conf import settings
 # from .forms import PayeeForm
 
 # Create your views here.
-@login_required
+
 def profile_list(request):
 	profiles = UserProfile.objects.all()
 	members = UserProfile.members.all()
@@ -29,7 +29,7 @@ def profile_list(request):
 
 	return render(request, 'profile_list.html', context)
 
-@login_required
+
 def profile_delete_list(request):
 	profiles = UserProfile.objects.all()
 	members = UserProfile.members.all()
@@ -53,7 +53,7 @@ def profile_delete_list(request):
 
 	return render(request, 'profile_delete_list.html', context)
 
-@login_required
+
 def create_colleague(request):
 	form = CreateColleagueForm()
 
@@ -81,7 +81,7 @@ def create_colleague(request):
 	}
 	return render(request, 'create_colleague.html', context)
 
-@login_required
+
 def edit_profile(request):
 	profiles = UserProfile.objects.all()
 	formset = CreateColleagueFormSet(queryset=profiles)

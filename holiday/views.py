@@ -12,7 +12,7 @@ from .forms import HolidayMonthCreateForm, HolidayEditFormSet, HolidayMonthFromD
 from django.contrib.auth.decorators import login_required
 
 
-@login_required
+
 def holiday_month_from_docx(request):
 	form = HolidayMonthFromDocxForm()
 
@@ -32,7 +32,7 @@ def holiday_month_from_docx(request):
 	}
 	return render(request, 'holiday_month_from_docx.html', context)
 
-@login_required
+
 def holiday_list_from_docx(request):
 	holiday_months = HolidayMonthFromDocx.objects.all()
 
@@ -43,7 +43,7 @@ def holiday_list_from_docx(request):
 	return render(request,'holiday_list_from_docx.html' , context)
 
 
-@login_required
+
 def holiday_detail_from_docx(request, pk):
 	holiday_months = get_object_or_404(HolidayMonthFromDocx, pk=pk)
 	holidays = HolidayFromDocx.objects.filter(month=holiday_months)
@@ -117,7 +117,7 @@ def holiday_detail_from_docx(request, pk):
 	return render(request,'holiday_detail_from_docx.html' , context)
 
 #
-# @login_required
+# 
 # def holiday_list(request):
 # 	holiday_months = HolidayMonth.objects.all()
 #
@@ -127,7 +127,7 @@ def holiday_detail_from_docx(request, pk):
 #
 # 	return render(request,'holiday_list.html' , context)
 #
-# @login_required
+# 
 # def holiday_detail(request, pk):
 # 	holiday_months = get_object_or_404(HolidayMonth, pk=pk)
 # 	holidays = Holiday.objects.filter(month=holiday_months)
@@ -230,7 +230,7 @@ def holiday_detail_from_docx(request, pk):
 # 	return render(request,'holiday_detail.html' , context)
 #
 #
-# @login_required
+# 
 # def holiday_create(request):
 # 	form = HolidayMonthCreateForm()
 #
@@ -250,7 +250,7 @@ def holiday_detail_from_docx(request, pk):
 #
 # 	return render(request, 'holiday_month_create.html', {'form': form})
 #
-# @login_required
+# 
 # def edit_holiday(request, month_pk):
 # 	holiday_months = get_object_or_404(HolidayMonth, pk=month_pk)
 # 	name = holiday_months.holiday_set.all()

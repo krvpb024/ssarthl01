@@ -7,7 +7,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
 # Create your views here.
-@login_required
+
 def zhudi_table_detail(request, pk):
 	zhudi = get_object_or_404(ZhuDiTable, pk=pk)
 	date = zhudi.date.split('.')[1] + zhudi.date.split('.')[2]
@@ -21,7 +21,7 @@ def zhudi_table_detail(request, pk):
 	}
 	return render(request, 'zhudi_table_detail.html', context)
 
-@login_required
+
 def zhudi_table_list(request):
 	zhudis = ZhuDiTable.objects.all()
 
@@ -32,7 +32,7 @@ def zhudi_table_list(request):
 	}
 	return render(request, 'zhudi_table_list.html', context)
 
-@login_required
+
 def zhudi_session_create(request):
 	form = ZhuDiSessionForm()
 	zhudi_sessions = ZhuDi.objects.all()
@@ -53,7 +53,7 @@ def zhudi_session_create(request):
 
 	return render(request, 'zhudi_session_create.html', context)
 
-@login_required
+
 def zhudi_session_delete(request, pk):
 	zhudi_session = get_object_or_404(ZhuDi, pk=pk)
 	if zhudi_session:
@@ -68,7 +68,7 @@ def zhudi_session_delete(request, pk):
 
 	return render(request, 'zhudi_session_create.html', context)
 
-@login_required
+
 def zhudi_table_create(request):
 	form = ZhuDiTableForm()
 
@@ -96,7 +96,7 @@ def zhudi_table_create(request):
 
 	return render(request, 'zhudi_table_create.html', {'form': form})
 
-@login_required
+
 def zhudi_table_delete(request, pk):
 	zhudi = get_object_or_404(ZhuDiTable, pk=pk)
 
@@ -111,7 +111,7 @@ def zhudi_table_delete(request, pk):
 	}
 	return render(request, 'zhudi_table_detail.html', context)
 
-@login_required
+
 def zuxun_table_detail(request, pk):
 	zuxun = get_object_or_404(ZuXunTable, pk=pk)
 
@@ -121,7 +121,7 @@ def zuxun_table_detail(request, pk):
 	}
 	return render(request, 'zuxun_table_detail.html', context)
 
-@login_required
+
 def zuxun_table_list(request):
 	zuxuns = ZuXunTable.objects.all()
 
@@ -132,7 +132,7 @@ def zuxun_table_list(request):
 	}
 	return render(request, 'zuxun_table_list.html', context)
 
-@login_required
+
 def zuxun_session_create(request):
 	form = ZuXunSessionForm()
 	zuxun_sessions = ZuXun.objects.all()
@@ -155,7 +155,7 @@ def zuxun_session_create(request):
 
 	return render(request, 'zuxun_session_create.html', context)
 
-@login_required
+
 def zuxun_session_delete(request, pk):
 	zuxun_session = get_object_or_404(ZuXun, pk=pk)
 	if zuxun_session:
@@ -171,7 +171,7 @@ def zuxun_session_delete(request, pk):
 	return render(request, 'zuxun_session_create.html', context)
 
 
-@login_required
+
 def zuxun_table_create(request):
 	form = ZuXunTableForm()
 
@@ -210,7 +210,7 @@ def zuxun_table_create(request):
 
 	return render(request, 'zuxun_table_create.html', {'form': form})
 
-@login_required
+
 def zuxun_table_delete(request, pk):
 	zuxun = get_object_or_404(ZuXunTable, pk=pk)
 

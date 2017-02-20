@@ -6,7 +6,7 @@ from django.core.urlresolvers import reverse
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 # Create your views here.
-@login_required
+
 def table_money_list(request):
 	months = Month.objects.all()
 
@@ -21,7 +21,7 @@ def table_money_list(request):
 	}
 	return render(request, 'table_money_list.html', context)
 
-@login_required
+
 def table_money_detail(request, pk):
 	from holiday.models import HolidayMonth, HolidayMonthFromDocx
 	months = get_object_or_404(Month, pk=pk)
@@ -47,7 +47,7 @@ def table_money_detail(request, pk):
 
 	return render(request, 'table_money_detail.html', context)
 
-@login_required
+
 def delete(request):
 	c = TableMoney.objects.all()
 	print(c)
@@ -79,7 +79,7 @@ def delete(request):
 
 # 	return render(request, 'table_money_create.html', {'form': form})
 
-@login_required
+
 def table_money_pay(request, pk):
 	months = get_object_or_404(Month, pk=pk)
 	table_moneys = months.tablemoney_set.all()
@@ -102,7 +102,7 @@ def table_money_pay(request, pk):
 	return render(request, 'table_money_pay.html', context)
 
 
-@login_required
+
 def extra_table_money_pay(request, pk):
 	months = get_object_or_404(Month, pk=pk)
 	extra_table_moneys = ExtraTableMoney.objects.filter(identify=str(months.year)+str(months.month))
@@ -124,7 +124,7 @@ def extra_table_money_pay(request, pk):
 	}
 	return render(request, 'extra_table_money_pay.html', context)
 
-@login_required
+
 def add_extra_table_money(request, pk):
 	form = ExtraTableMoneyForm()
 	months = get_object_or_404(Month, pk=pk)
