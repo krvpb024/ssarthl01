@@ -1,36 +1,140 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<hr>
+<div class="clock">
+<span id="Date" class="h1"></span>
+      <span id="hours" class="h1"></span>
+      <span id="point" class="h1">:</span>
+      <span id="min" class="h1"></span>
+      <span id="point" class="h1">:</span>
+      <span id="sec" class="h1"></span>
+</div>
+<hr>
+
+
 
       <div class="row">
-        <div class="col-lg-5">
-          <h2>花蓮駐地人員</h2>
+        <div class="col-lg-6 todayb5">
+          <h2>今日值班人員</h2>
 			<dl class="row">
-			<dt class="col-sm-3">小隊長：</dt>
-			<dd class="col-sm-9">{{ captain }}</dd>
+			<dt class="col-sm-2">主管</dt>
+			<dd class="col-sm-9">{{ today_supervisor }}</dd>
 
-			<dt class="col-sm-3">隊員：</dt>
-			<dd class="col-sm-9">{% for member in members %}{{ member }} {% endfor %}</dd>
+			<dt class="col-sm-2">隊員</dt>
+			<dd class="col-sm-9">{% for member in today_member_duty %}{{ member }} {% endfor %}</dd>
 
-			<dt class="col-sm-3">替代役：</dt>
-			<dd class="col-sm-9">{% for substitute in substitutes %}{{ substitute }} {% endfor %}</dd>
+			<dt class="col-sm-2">替代役</dt>
+			<dd class="col-sm-9">{% for substitute in today_substitutes_duty %}{{ substitute }} {% endfor %}</dd>
 			</dl>
-          <p><a class="btn btn-primary" href={% url 'profile_list' %} role="button">人員列表 &raquo;</a></p>
+
         </div>
-        <div class="col-lg-4">
-          <h2>聯絡方式</h2>
+        <div class="col-lg-6 todaya5">
+          <h2>今日值班人員</h2>
+      <dl class="row">
+      <dt class="col-sm-2">主管</dt>
+      <dd class="col-sm-9">{{ tomorrow_supervisor }}</dd>
+
+      <dt class="col-sm-2">隊員</dt>
+      <dd class="col-sm-9">{% for member in tomorrow_member_duty %}{{ member }} {% endfor %}</dd>
+
+      <dt class="col-sm-2">替代役</dt>
+      <dd class="col-sm-9">{% for substitute in tomorrow_substitutes_duty %}{{ substitute }} {% endfor %}</dd>
+      </dl>
+
+        </div>
+        <div class="col-lg-6 tomorrow">
+          <h2>明日值班人員</h2>
 			<dl class="row">
-			<dt class="col-sm-1"><i class="fa fa-phone" aria-hidden="true"></i></dt>
-			<dd class="col-sm-11">03-8267119</dd>
+			<dt class="col-sm-2">主管</dt>
+			<dd class="col-sm-9">{{ tomorrow_supervisor }}</dd>
 
-			<dt class="col-sm-1"><i class="fa fa-fax" aria-hidden="true"></i></dt>
-			<dd class="col-sm-11">03-8269546</dd>
+			<dt class="col-sm-2">隊員</dt>
+			<dd class="col-sm-9">{% for member in tomorrow_member_duty %}{{ member }} {% endfor %}</dd>
 
-			<dt class="col-sm-1"><i class="fa fa-map-marker" aria-hidden="true"></i> </dt>
-			<dd class="col-sm-11">花蓮縣新城鄉大漢村華興街1號</dd>
+			<dt class="col-sm-2">替代役</dt>
+			<dd class="col-sm-9">{% for substitute in tomorrow_substitutes_duty %}{{ substitute }} {% endfor %}</dd>
 			</dl>
         </div>
+
+    </div>
+
+    <hr>
+    <div class="row">
+        <div class="col-lg-6 change">
+          <h2>人員變動</h2>
+			<dl class="row">
+      <dt class="col-sm-2">放假</dt>
+      <dd class="col-sm-9">{% for people in day_off %}{{ people }} {% endfor %}</dd>
+
+      <dt class="col-sm-2">收假</dt>
+      <dd class="col-sm-9">{% for people in back %}{{ people }} {% endfor %}</dd>
+			</dl>
 
       </div>
+      </div>
+
+
+
+<script type="text/javascript">
+$(document).ready(function() {
+  var monthNames = ["1","2","3","4","5","6","7","8","9","10","11","12"]
+  var weekdayNames = ["日","一","二","三","四","五","六",]
+
+
+  var newDate = new Date();
+  newDate.setDate(newDate.getDate());
+
+  var year = Number(newDate.getFullYear()) - 1911
+  console.log(year)
+
+
+  $('#Date').html(year + "年 " + monthNames[newDate.getMonth()] + "月 " + newDate.getDate() + "日 " + "星期" + weekdayNames[newDate.getDay()]);
+
+  setInterval( function() {
+	// Create a newDate() object and extract the seconds of the current time on the visitor's
+	var seconds = new Date().getSeconds();
+	// Add a leading zero to seconds value
+	$("#sec").html(( seconds < 10 ? "0" : "" ) + seconds);
+
+
+	},1000);
+
+  setInterval( function() {
+	// Create a newDate() object and extract the minutes of the current time on the visitor's
+	var minutes = new Date().getMinutes();
+	// Add a leading zero to the minutes value
+	$("#min").html(( minutes < 10 ? "0" : "" ) + minutes);
+    },1000);
+
+  setInterval( function() {
+  	// Create a newDate() object and extract the hours of the current time on the visitor's
+  	var hours = new Date().getHours();
+
+    if (hours >= 0 && hours <= 12) {
+      $( ".todaya5" ).css( "display", "none" );
+      $( ".todayb5" ).css( "display", "block" );
+      $( ".tomorrow" ).css( "display", "none" );
+    } else if (hours > 12 && hours <= 17) {
+      $( ".todaya5" ).css( "display", "none" );
+      $( ".todayb5" ).css( "display", "block" );
+      $( ".tomorrow" ).css( "display", "block" );
+    } else if (hours > 17) {
+      $( ".todaya5" ).css( "display", "block" );
+      $( ".todayb5" ).css( "display", "none" );
+      $( ".tomorrow" ).css( "display", "none" );
+    }
+  	// Add a leading zero to the hours value
+  	$("#hours").html(( hours < 10 ? "0" : "" ) + hours);
+      }, 1000);
+
+    if (hours >= 0 && hours <= 12) {
+      $( ".todaya5" ).hide();
+    } else if (hours >= 12 && hours <= 17) {
+      $( ".todaya5" ).show();
+      console.log('ffe')
+    }
+})
+</script>
 
 {% endblock %}

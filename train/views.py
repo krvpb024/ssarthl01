@@ -90,9 +90,7 @@ def zhudi_table_create(request):
 			fileform.img2 = files[1]
 			fileform.save()
 
-
-		fileform.save()
-		return HttpResponseRedirect('/train/zhudi/' + str(fileform.pk))
+			return HttpResponseRedirect('/train/zhudi/' + str(fileform.pk))
 
 	return render(request, 'zhudi_table_create.html', {'form': form})
 
@@ -205,11 +203,9 @@ def zuxun_table_create(request):
 			files = request.FILES.getlist('img')
 			fileform.img = files[0]
 			fileform.img2 = files[1]
-			fileform = form.save(commit=False)
+			fileform = form.save()
 
-
-		fileform.save()
-		return HttpResponseRedirect('/train/zuxun/' + str(fileform.pk))
+			return HttpResponseRedirect('/train/zuxun/' + str(fileform.pk))
 
 	return render(request, 'zuxun_table_create.html', {'form': form})
 
