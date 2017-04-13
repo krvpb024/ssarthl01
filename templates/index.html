@@ -3,72 +3,77 @@
 {% block content %}
 <hr>
 <div class="clock">
-<span id="Date" class="h1"></span>
-      <span id="hours" class="h1"></span>
-      <span id="point" class="h1">:</span>
-      <span id="min" class="h1"></span>
-      <span id="point" class="h1">:</span>
-      <span id="sec" class="h1"></span>
+<span id="Date" class="display-4"></span>
+      <span id="hours" class="display-4"></span>
+      <span id="point" class="display-4">:</span>
+      <span id="min" class="display-4"></span>
+      <span id="point" class="display-4">:</span>
+      <span id="sec" class="display-4"></span>
 </div>
 <hr>
 
 
 
-      <div class="row">
-        <div class="col-lg-6 todayb5">
-          <h2>今日值班人員</h2>
+      <div class="row h1">
+        <div class="col-lg-12 todayb5">
+          <p>今日值班人員</p>
 			<dl class="row">
-			<dt class="col-sm-2">主管</dt>
-			<dd class="col-sm-9">{{ today_supervisor }}</dd>
+			<dt class="col-lg-2">主管</dt>
+			<dd class="col-lg-10">{{ today_supervisor }}</dd>
 
-			<dt class="col-sm-2">隊員</dt>
-			<dd class="col-sm-9">{% for member in today_member_duty %}{{ member }} {% endfor %}</dd>
+			<dt class="col-lg-2">隊員</dt>
+			<dd class="col-lg-10">{% for member in today_member_duty %}{{ member }} {% endfor %}</dd>
 
-			<dt class="col-sm-2">替代役</dt>
-			<dd class="col-sm-9">{% for substitute in today_substitutes_duty %}{{ substitute }} {% endfor %}</dd>
+			<dt class="col-lg-2">替代役</dt>
+			<dd class="col-lg-10">{% for substitute in today_substitutes_duty %}{{ substitute }} {% endfor %}</dd>
 			</dl>
 
         </div>
-        <div class="col-lg-6 todaya5">
-          <h2>今日值班人員</h2>
+        </div>
+
+        <div class="row h1">
+        <div class="col-lg-12 todaya5">
+          <p>今日值班人員</p>
       <dl class="row">
-      <dt class="col-sm-2">主管</dt>
-      <dd class="col-sm-9">{{ tomorrow_supervisor }}</dd>
+      <dt class="col-lg-2">主管</dt>
+      <dd class="col-lg-10">{{ tomorrow_supervisor }}</dd>
 
-      <dt class="col-sm-2">隊員</dt>
-      <dd class="col-sm-9">{% for member in tomorrow_member_duty %}{{ member }} {% endfor %}</dd>
+      <dt class="col-lg-2">隊員</dt>
+      <dd class="col-lg-10">{% for member in tomorrow_member_duty %}{{ member }} {% endfor %}</dd>
 
-      <dt class="col-sm-2">替代役</dt>
-      <dd class="col-sm-9">{% for substitute in tomorrow_substitutes_duty %}{{ substitute }} {% endfor %}</dd>
+      <dt class="col-lg-2">替代役</dt>
+      <dd class="col-lg-10">{% for substitute in tomorrow_substitutes_duty %}{{ substitute }} {% endfor %}</dd>
       </dl>
 
+    </div>
         </div>
-        <div class="col-lg-6 tomorrow">
-          <h2>明日值班人員</h2>
+        <div class="row h1">
+        <div class="col-lg-12 tomorrow">
+          <p>明日值班人員</p>
 			<dl class="row">
-			<dt class="col-sm-2">主管</dt>
-			<dd class="col-sm-9">{{ tomorrow_supervisor }}</dd>
+			<dt class="col-lg-2">主管</dt>
+			<dd class="col-lg-10">{{ tomorrow_supervisor }}</dd>
 
-			<dt class="col-sm-2">隊員</dt>
-			<dd class="col-sm-9">{% for member in tomorrow_member_duty %}{{ member }} {% endfor %}</dd>
+			<dt class="col-lg-2">隊員</dt>
+			<dd class="col-lg-10">{% for member in tomorrow_member_duty %}{{ member }} {% endfor %}</dd>
 
-			<dt class="col-sm-2">替代役</dt>
-			<dd class="col-sm-9">{% for substitute in tomorrow_substitutes_duty %}{{ substitute }} {% endfor %}</dd>
+			<dt class="col-lg-2">替代役</dt>
+			<dd class="col-lg-10">{% for substitute in tomorrow_substitutes_duty %}{{ substitute }} {% endfor %}</dd>
 			</dl>
         </div>
+</div>
 
-    </div>
 
     <hr>
-    <div class="row">
-        <div class="col-lg-6 change">
-          <h2>人員變動</h2>
+    <div class="row h1">
+        <div class="col-lg-12 change">
+          <p>人員變動</p>
 			<dl class="row">
-      <dt class="col-sm-2">放假</dt>
-      <dd class="col-sm-9">{% for people in day_off %}{{ people }} {% endfor %}</dd>
+      <dt class="col-lg-2">放假</dt>
+      <dd class="col-lg-10">{% for people in day_off %}{{ people }} {% endfor %}</dd>
 
-      <dt class="col-sm-2">收假</dt>
-      <dd class="col-sm-9">{% for people in back %}{{ people }} {% endfor %}</dd>
+      <dt class="col-lg-2">收假</dt>
+      <dd class="col-lg-10">{% for people in back %}{{ people }} {% endfor %}</dd>
 			</dl>
 
       </div>
@@ -80,7 +85,7 @@
 $(document).ready(function() {
   var monthNames = ["1","2","3","4","5","6","7","8","9","10","11","12"]
   var weekdayNames = ["日","一","二","三","四","五","六",]
-
+  $( ".jumbotron" ).css( "display", "none" );
 
   var newDate = new Date();
   newDate.setDate(newDate.getDate());
@@ -94,6 +99,7 @@ $(document).ready(function() {
   setInterval( function() {
 	// Create a newDate() object and extract the seconds of the current time on the visitor's
 	var seconds = new Date().getSeconds();
+
 	// Add a leading zero to seconds value
 	$("#sec").html(( seconds < 10 ? "0" : "" ) + seconds);
 
@@ -110,6 +116,10 @@ $(document).ready(function() {
   setInterval( function() {
   	// Create a newDate() object and extract the hours of the current time on the visitor's
   	var hours = new Date().getHours();
+
+    if (hours === 0) {
+      location.reload();
+    }
 
     if (hours >= 0 && hours <= 12) {
       $( ".todaya5" ).css( "display", "none" );
@@ -132,7 +142,6 @@ $(document).ready(function() {
       $( ".todaya5" ).hide();
     } else if (hours >= 12 && hours <= 17) {
       $( ".todaya5" ).show();
-      console.log('ffe')
     }
 })
 </script>

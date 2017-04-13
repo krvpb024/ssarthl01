@@ -49,7 +49,7 @@ def index(request):
 		elif "陳柏瑞" in member_duty:
 			member_duty.remove("陳柏瑞")
 			supervisor = "陳柏瑞"
-		elif "游皓中" in member_dufty:
+		elif "游皓中" in member_duty:
 			member_duty.remove("游皓中")
 			supervisor = "游皓中"
 		else:
@@ -65,27 +65,24 @@ def index(request):
 
 	for member in members:
 		if member.name in today_member_duty or member.name == today_supervisor:
-			print("第一",member)
 			if member.name not in tomorrow_member_duty and member.name != tomorrow_supervisor:
-				print("第二",member)
 				day_off.append(member.name)
-		elif member.name not in today_member_duty and member.name != today_supervisor:
-			print("第三", member)
+		if member.name not in today_member_duty and member.name != today_supervisor:
 			if member.name in tomorrow_member_duty or member.name == tomorrow_supervisor:
-				print("第四",member)
 				back.append(member.name)
 
 
 	for substitute in substitutes:
-		if substitute.name in today_member_duty:
-			if substitute.name not in tomorrow_substitutes_duty:
+		print(substitute)
+		if substitute.name in today_substitutes_duty and substitute.name not in tomorrow_substitutes_duty:
 				print(substitute)
 				day_off.append(substitute.name)
-		elif substitute.name not in today_substitutes_duty:
-			if substitute.name in tomorrow_substitutes_duty:
+		if substitute.name not in today_substitutes_duty and substitute.name in tomorrow_substitutes_duty:
 				print(substitute)
 				back.append(substitute.name)
 
+	print('today_substitutes_duty',today_substitutes_duty)
+	print('tomorrow_substitutes_duty',tomorrow_substitutes_duty)
 	print("day_off",day_off)
 	print("back",back)
 	# tomorrow = datetime.date.today() + datetime.timedelta(days=1)
