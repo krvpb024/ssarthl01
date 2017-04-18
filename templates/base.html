@@ -29,36 +29,38 @@
   <body>
 
     <div class="container-fluid">
+      <nav class="navbar navbar-toggleable-md navbar-dark bg-primary">
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
 
-      <!-- The justified navigation menu is meant for single line per list item.
-           Multiple lines will require custom code not provided by Bootstrap. -->
-      <div class="masthead">
-        <nav class="navbar navbar-dark bg-primary">
-          <div class="nav navbar-nav">
-            <a class="nav-item nav-link active" href={% url 'index' %}>SSART <span class="sr-only">(current)</span></a>
-            {% if user.is_authenticated %}
-            <a class="nav-item nav-link" href={% url 'profile_list' %}>人事</a>
-            <a class="nav-item nav-link" href={% url 'holiday_list_from_docx' %}>輪休表</a>
-            <a class="nav-item nav-link" href={% url 'table_money_list' %}>餐費表格</a>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+          <ul class="navbar-nav">
+            <li class="nav-item active">
+              <a class="nav-link" href={% url 'index' %}>SSART <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href={% url 'profile_list' %}>人事</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href={% url 'holiday_list_from_docx' %}>輪休表</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href={% url 'table_money_list' %}>餐費表格</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                訓練業務
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <a class="dropdown-item" href={% url 'zhudi_table_list' %}>駐地常訓</a>
+                <a class="dropdown-item" href={% url 'zuxun_table_list' %}>人機組訓</a>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </nav>
 
-                <li class="nav-item dropdown">
-      <a class="nav-link dropdown-toggle" href="#" id="supportedContentDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">訓練業務</a>
-      <div class="dropdown-menu" aria-labelledby="supportedContentDropdown">
-        <a class="dropdown-item" href={% url 'zhudi_table_list' %}>駐地常訓</a>
-        <a class="dropdown-item" href={% url 'zuxun_table_list' %}>人機組訓</a>
-
-      </div>
-    </li>
-    {% endif %}
-    {% if user.is_authenticated %}
-    <a class="nav-item nav-link float-xs-right" href={% url 'user_logout' %}>登出</a>
-    {% else %}
-    <a class="nav-item nav-link float-xs-right" href={% url 'user_login' %}>登入</a>
-    {% endif %}
-          </div>
-
-        </nav>
-      </div>
 
       <!-- Jumbotron -->
       <div class="jumbotron">
@@ -157,7 +159,8 @@
     <!-- Latest compiled and minified JavaScript -->
 <!--     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js" integrity="sha384-BLiI7JTZm+JWlgKa0M0kGRpJbF2J8q+qreVrKBC47e3K6BW78kGLrCkeRX6I9RoK" crossorigin="anonymous"></script>
 -->    <script src="{% static 'bootstrap/js/bootstrap.js' %}"></script>
-
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
 
     <!-- <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script> -->
   </body>

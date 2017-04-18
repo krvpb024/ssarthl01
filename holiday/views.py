@@ -117,7 +117,7 @@ def holiday_detail_from_docx(request, pk):
 	return render(request,'holiday_detail_from_docx.html' , context)
 
 #
-# 
+#
 # def holiday_list(request):
 # 	holiday_months = HolidayMonth.objects.all()
 #
@@ -127,7 +127,7 @@ def holiday_detail_from_docx(request, pk):
 #
 # 	return render(request,'holiday_list.html' , context)
 #
-# 
+#
 # def holiday_detail(request, pk):
 # 	holiday_months = get_object_or_404(HolidayMonth, pk=pk)
 # 	holidays = Holiday.objects.filter(month=holiday_months)
@@ -230,7 +230,7 @@ def holiday_detail_from_docx(request, pk):
 # 	return render(request,'holiday_detail.html' , context)
 #
 #
-# 
+#
 # def holiday_create(request):
 # 	form = HolidayMonthCreateForm()
 #
@@ -250,7 +250,7 @@ def holiday_detail_from_docx(request, pk):
 #
 # 	return render(request, 'holiday_month_create.html', {'form': form})
 #
-# 
+#
 # def edit_holiday(request, month_pk):
 # 	holiday_months = get_object_or_404(HolidayMonth, pk=month_pk)
 # 	name = holiday_months.holiday_set.all()

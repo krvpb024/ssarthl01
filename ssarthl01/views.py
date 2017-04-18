@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import login_required
 import datetime, re, json
 from ssarthl01.settings import BASE_DIR, MEDIA_ROOT
 from holiday.models import HolidayFromDocx
+from train.models import ZhuDiTable, ZuXunTable
 
 User = get_user_model()
 
@@ -17,6 +18,8 @@ User = get_user_model()
 def index(request):
 	members = UserProfile.members.all()
 	substitutes = UserProfile.substitutes.all()
+	zhudi = ZhuDiTable.objects.all()[0]
+	zuxun = ZuXunTable.objects.all()[0]
 
 	def get_holiday(date):
 		year = date.strftime("%Y")
@@ -109,6 +112,8 @@ def index(request):
 		'tomorrow_supervisor':tomorrow_supervisor,
 		'day_off':day_off,
 		'back':back,
+		'zhudi':zhudi,
+		'zuxun':zuxun
 
 	}
 
