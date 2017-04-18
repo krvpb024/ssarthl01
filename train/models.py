@@ -70,7 +70,7 @@ def upload_location_zuxun(instance, filename):
 
 
 class ZuXunTable(models.Model):
-	session = models.CharField(max_length=50)
+	session = models.CharField(max_length=500)
 	date = models.CharField(max_length=20)
 	img = models.FileField(upload_to=upload_location_zuxun)
 	img2 = models.FileField(upload_to=upload_location_zuxun)
